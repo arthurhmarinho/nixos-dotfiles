@@ -22,8 +22,28 @@ font pango:JetBrainsMono Nerd Font 10
 default_border pixel 2
 default_floating_border pixel 2
 smart_borders on
-gaps inner 6
-gaps outer 2
+gaps inner 8
+gaps outer 4
+
+# --- SwayFX: cantos, sombras, blur, escurecer inativas ---
+corner_radius 10
+# sem cantos quando só há 1 janela
+smart_corner_radius on
+shadows enable
+shadows_on_csd disable
+shadow_blur_radius 20
+shadow_color #0000009a
+blur enable
+blur_xray disable
+blur_passes 2
+blur_radius 4
+default_dim_inactive 0.08
+dim_inactive_colors.unfocused #000000ff
+dim_inactive_colors.urgent    #c75f5fff
+# Blur/cantos atrás da barra, notificações e launcher
+layer_effects "waybar" blur enable; shadows enable
+layer_effects "notifications" blur enable; shadows enable; corner_radius 10
+layer_effects "launcher" blur enable; shadows enable; corner_radius 10
 
 #                       borda    fundo  texto   indicador filho
 client.focused          $accent  $bg    $fg_hi  $accent   $accent
@@ -75,6 +95,8 @@ input type:touchpad {
 # ------------------------------- inicialização -------------------------------
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway
 exec waybar
+# novas janelas em espiral (alterna split h/v)
+exec autotiling-rs
 exec mako
 exec /etc/polkit-gnome-agent
 exec swayidle -w \

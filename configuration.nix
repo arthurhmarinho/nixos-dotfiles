@@ -72,6 +72,7 @@
   # --- INTERFACE GRÁFICA (SWAY) ---
   programs.sway = {
     enable = true;
+    package = pkgs.swayfx;                            # fork do Sway: cantos, blur, sombras
     wrapperFeatures.gtk = true;                       # apps GTK com tema correto
     extraPackages = with pkgs; [
       swaylock swayidle swaybg
@@ -79,6 +80,7 @@
       grim slurp wl-clipboard jq
       brightnessctl playerctl pavucontrol
       wev                                           # mostra teclas/botões pressionados
+      autotiling-rs                                 # divide janelas em espiral (dwindle)
     ];
   };
 
