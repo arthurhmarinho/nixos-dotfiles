@@ -21,14 +21,12 @@ font pango:JetBrainsMono Nerd Font 10
 
 default_border pixel 2
 default_floating_border pixel 2
-smart_borders on
+smart_borders off
 gaps inner 8
 gaps outer 4
 
 # --- SwayFX: cantos, sombras, blur, escurecer inativas ---
-corner_radius 10
-# sem cantos quando só há 1 janela
-smart_corner_radius on
+corner_radius 0
 shadows enable
 shadows_on_csd disable
 shadow_blur_radius 20
@@ -42,8 +40,8 @@ dim_inactive_colors.unfocused #000000ff
 dim_inactive_colors.urgent    #c75f5fff
 # Blur/cantos atrás da barra, notificações e launcher
 layer_effects "waybar" blur enable; shadows enable
-layer_effects "notifications" blur enable; shadows enable; corner_radius 10
-layer_effects "launcher" blur enable; shadows enable; corner_radius 10
+layer_effects "notifications" blur enable; shadows enable
+layer_effects "launcher" blur enable; shadows enable
 
 #                       borda    fundo  texto   indicador filho
 client.focused          $accent  $bg    $fg_hi  $accent   $accent
