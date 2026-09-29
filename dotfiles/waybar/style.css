@@ -1,21 +1,23 @@
-/* ~/.config/waybar/style.css — ilhas flutuantes, preto + verde */
-@define-color bg      rgba(17, 17, 17, 0.82);
-@define-color bg_hi   #1c1c1c;
-@define-color fg      #8a8a8a;
+/* ~/.config/waybar/style.css — vertical, ilhas arredondadas, preto + verde */
+@define-color bg      rgba(17, 17, 17, 0.85);
+@define-color bg_hi   #222222;
+@define-color fg      #6f6f6f;
 @define-color fg_hi   #d0d0d0;
-@define-color line    #2a2a2a;
+@define-color line    #262626;
 @define-color accent  #7fb069;
 @define-color urgent  #c75f5f;
 
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 13px;
+  font-size: 11px;
+  font-weight: bold;
   border: none;
   border-radius: 0;
   min-height: 0;
+  min-width: 0;
 }
 
-/* A barra em si é transparente: só as ilhas têm fundo */
+/* A barra é transparente: só as ilhas têm fundo */
 window#waybar {
   background: transparent;
   color: @fg_hi;
@@ -24,92 +26,105 @@ window#waybar {
 tooltip {
   background: #111111;
   border: 1px solid @accent;
+  border-radius: 10px;
 }
-tooltip label { color: @fg_hi; }
+tooltip label { color: @fg_hi; font-weight: normal; }
 
 /* ---------------------------------- ilhas ---------------------------------- */
-#left,
+#custom-launcher,
+#workspaces,
+#mpris,
 #stats,
 #system,
-#window,
-#mpris,
 #clock,
 #custom-power {
   background: @bg;
   border: 1px solid @line;
-  padding: 0 12px;
+  border-radius: 14px;
 }
 
-/* sem janela focada: esconde a ilha do título */
-window#waybar.empty #window {
-  background: transparent;
-  border-color: transparent;
-}
-
-/* ---------------------------------- esquerda ---------------------------------- */
-#left { padding: 0 4px 0 0; }
-
+/* ----------------------------------- topo ----------------------------------- */
 #custom-launcher {
-  color: #111111;
-  background: @accent;
-  font-size: 16px;
-  padding: 0 12px 0 10px;
-  margin-right: 4px;
+  color: @accent;
+  font-size: 18px;
+  padding: 8px 0;
 }
+#custom-launcher:hover { background: @bg_hi; }
 
+#workspaces { padding: 4px 0; }
 #workspaces button {
   color: @fg;
   background: transparent;
-  padding: 0 9px;
-  box-shadow: inset 0 -2px transparent;
+  margin: 2px 5px;
+  padding: 4px 0;
+  border-radius: 10px;
 }
 #workspaces button:hover {
+  color: @fg_hi;
   background: @bg_hi;
-  box-shadow: inset 0 -2px @line;
 }
 #workspaces button.focused {
-  color: @accent;
-  background: @bg_hi;
-  box-shadow: inset 0 -2px @accent;
+  color: #111111;
+  background: @accent;
 }
-#workspaces button.urgent { color: @urgent; }
+#workspaces button.urgent {
+  color: #111111;
+  background: @urgent;
+}
 
 #mode {
   color: #111111;
   background: @accent;
-  padding: 0 10px;
+  border-radius: 14px;
+  padding: 6px 0;
+  margin-top: 6px;
 }
-#scratchpad { color: @fg; padding: 0 8px; }
+#scratchpad {
+  color: @fg;
+  padding: 6px 0;
+}
 
-/* ----------------------------------- centro ----------------------------------- */
-#window { color: @fg_hi; }
-#mpris  { color: @accent; }
+/* ---------------------------------- centro ---------------------------------- */
+#mpris {
+  color: @accent;
+  font-size: 15px;
+  padding: 8px 0;
+}
 #mpris.paused { color: @fg; }
 
-/* ----------------------------------- direita ---------------------------------- */
-#cpu, #temperature, #memory, #custom-gpu,
-#network, #pulseaudio, #bluetooth, #tray {
-  padding: 0 6px;
+/* ----------------------------------- base ----------------------------------- */
+#stats, #system { padding: 4px 0; }
+
+#cpu, #memory, #custom-gpu, #pulseaudio {
+  color: @fg_hi;
+  padding: 6px 0 2px 0;
+}
+#temperature {
+  color: @fg;
+  font-size: 10px;
+  padding: 0 0 6px 0;
+}
+#temperature.critical { color: @urgent; }
+
+#tray       { padding: 6px 0; }
+#bluetooth  { color: @fg_hi; padding: 6px 0; font-size: 14px; }
+#bluetooth.connected { color: @accent; }
+#network    { color: @accent; padding: 6px 0; font-size: 14px; }
+#network.disconnected { color: @urgent; }
+#pulseaudio.muted { color: @fg; font-size: 14px; }
+
+#clock {
+  color: @accent;
+  font-size: 12px;
+  padding: 8px 0;
 }
 
-#cpu, #memory, #custom-gpu { color: @fg_hi; }
-#temperature               { color: @fg; margin-right: 6px; }
-#temperature.critical      { color: @urgent; }
-
-#network              { color: @accent; }
-#network.disconnected { color: @urgent; }
-#pulseaudio           { color: @fg_hi; }
-#pulseaudio.muted     { color: @fg; }
-#bluetooth.connected  { color: @accent; }
-
-#clock { color: @fg_hi; }
-
 #custom-power {
-  color: @accent;
-  padding: 0 14px;
+  color: @urgent;
+  font-size: 15px;
+  padding: 8px 0;
 }
 #custom-power:hover {
   color: #111111;
   background: @urgent;
-  border-color: @urgent;
 }
