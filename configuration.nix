@@ -60,7 +60,14 @@
     LC_TIME = "pt_BR.UTF-8";
   };
 
-  console.keyMap = "us";                        # teclado ABNT2 no terminal
+  # Layout do teclado: uma única fonte para console e SDDM (o Sway usa o
+  # mesmo layout no seu config). O SDDM (compositor weston) e o console leem
+  # services.xserver.xkb — isso NÃO liga o servidor X.
+  services.xserver.xkb = {
+    layout = "br";                  # br = ABNT2 (variante padrão)
+    variant = "";
+  };
+  console.useXkbConfig = true;      # console usa o mesmo layout do xkb
 
   # --- INTERFACE GRÁFICA (SWAY) ---
   programs.sway = {
@@ -71,6 +78,7 @@
       waybar fuzzel mako libnotify
       grim slurp wl-clipboard jq
       brightnessctl playerctl pavucontrol
+      wev                                           # mostra teclas/botões pressionados
     ];
   };
 
@@ -95,6 +103,10 @@
     enable = true;
     wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    # Compartilhar tela e screenshot pelo portal wlr. Não redefinir
+    # config.sway.default: o módulo do Sway já o define (gtk).
+    config.sway."org.freedesktop.impl.portal.ScreenCast" = "wlr";
+    config.sway."org.freedesktop.impl.portal.Screenshot" = "wlr";
   };
 
   # Agente de polkit (pedidos de senha gráficos), iniciado pelo config do Sway

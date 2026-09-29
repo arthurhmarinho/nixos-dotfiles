@@ -35,10 +35,30 @@ client.urgent           $urgent  $bg    $fg_hi  $urgent   $urgent
 output * bg $bg solid_color
 # output * bg ~/.config/sway/wallpaper.png fill $bg
 
+# --------------------------------- monitores ---------------------------------
+# Identificados por marca/modelo/serial (não mudam se trocar de porta).
+# Principal: AOC 24G4 (DP) a 180 Hz, embaixo.
+# Secundário: AOC 24G2E1 (HDMI) a 100 Hz, em cima, montado de ponta-cabeça.
+set $main "AOC 24G4 12VPAXA009928"
+set $side "AOC 24G2E1 12XP3XA001455"
+
+output $main mode 1920x1080@180.003Hz position 0 1080
+output $side mode 1920x1080@100Hz     position 0 0 transform 180
+
+# Workspaces 1–5 no principal, 6–9 no secundário
+workspace 1 output $main
+workspace 2 output $main
+workspace 3 output $main
+workspace 4 output $main
+workspace 5 output $main
+workspace 6 output $side
+workspace 7 output $side
+workspace 8 output $side
+workspace 9 output $side
+
 # --------------------------------- entrada -----------------------------------
 input type:keyboard {
-    xkb_layout us
- xkb_variant intl
+    xkb_layout br
     repeat_delay 300
     repeat_rate 40
 }
