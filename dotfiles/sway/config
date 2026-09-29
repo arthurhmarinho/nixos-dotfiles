@@ -22,7 +22,7 @@ font pango:JetBrainsMono Nerd Font 10
 default_border pixel 2
 default_floating_border pixel 2
 smart_borders off
-gaps inner 3
+gaps inner 2
 gaps outer 0
 
 # --- SwayFX: cantos, sombras, blur, escurecer inativas ---
