@@ -1,0 +1,214 @@
+{ config, pkgs, inputs, ... }:
+
+{
+  imports =
+    [ # Inclui o resultado do escaneamento de hardware (NÃO REMOVA)
+      ./hardware-configuration.nix
+      # Tema SilentSDDM (vem do flake.nix)
+      inputs.silentSDDM.nixosModules.default
+    ];
+
+  # --- NIX ---
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    auto-optimise-store = true;          # deduplica arquivos na /nix/store
+  };
+  nix.gc = {                             # limpa gerações antigas toda semana
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  # Permite pacotes proprietários (Steam, Spotify, Discord, Obsidian...)
+  nixpkgs.config.allowUnfree = true;
+
+  # --- BOOTLOADER ---
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;   # só 10 gerações no menu de boot
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # --- KERNEL E HARDWARE (Ryzen + RX580) ---
+  boot.kernelPackages = pkgs.linuxPackages_zen;       # baixa latência, desktop/jogos
+  hardware.amdgpu.initrd.enable = true;               # carrega o amdgpu cedo no boot
+  hardware.enableRedistributableFirmware = true;
+  hardware.cpu.amd.updateMicrocode = true;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;                               # necessário para Steam/Wine
+  };
+  # Obs: o ROCm não suporta mais a RX580 (gfx803). Para IA local, use backends Vulkan.
+
+  hardware.bluetooth.enable = true;
+
+  # --- REDE E LOCALIZAÇÃO ---
+  networking.hostName = "nixos";
+  networking.networkmanager.enable = true;
+
+  time.timeZone = "America/Fortaleza";                # mesmo fuso de Natal/RN (UTC-3)
+
+  i18n.defaultLocale = "pt_BR.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "pt_BR.UTF-8";
+    LC_IDENTIFICATION = "pt_BR.UTF-8";
+    LC_MEASUREMENT = "pt_BR.UTF-8";
+    LC_MONETARY = "pt_BR.UTF-8";
+    LC_NAME = "pt_BR.UTF-8";
+    LC_NUMERIC = "pt_BR.UTF-8";
+    LC_PAPER = "pt_BR.UTF-8";
+    LC_TELEPHONE = "pt_BR.UTF-8";
+    LC_TIME = "pt_BR.UTF-8";
+  };
+
+  console.keyMap = "us";                        # teclado ABNT2 no terminal
+
+  # --- INTERFACE GRÁFICA (SWAY) ---
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;                       # apps GTK com tema correto
+    extraPackages = with pkgs; [
+      swaylock swayidle swaybg
+      waybar fuzzel mako libnotify
+      grim slurp wl-clipboard jq
+      brightnessctl playerctl pavucontrol
+    ];
+  };
+
+  # Tela de login: SDDM + SilentSDDM (o mesmo tema do CachyOS)
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+      # Se o greeter não abrir, troque para false e adicione: services.xserver.enable = true;
+    };
+    defaultSession = "sway";
+  };
+
+  programs.silentSDDM = {
+    enable = true;
+    theme = "default";   # presets: default, rei, ken, silvia, everforest, nord, catppuccin-*
+    # settings = { ... }; # personalização (ver o exemplo no flake.nix do SilentSDDM)
+  };
+
+  # Portais (compartilhar tela, seletor de arquivos)
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  # Agente de polkit (pedidos de senha gráficos), iniciado pelo config do Sway
+  security.polkit.enable = true;
+  environment.etc."polkit-gnome-agent".source =
+    "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+
+  # Chaveiro (senhas salvas de apps como GitHub Desktop)
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+
+  # Pendrives, lixeira e rede no Nautilus
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
+  # --- SOM (PIPEWIRE) ---
+  services.pulseaudio.enable = false;                 # antes: hardware.pulseaudio
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
+  # --- USUÁRIO ---
+  programs.fish.enable = true;
+  programs.starship.enable = true;
+
+  users.users.arthur = {
+    isNormalUser = true;
+    description = "Arthur";
+    shell = pkgs.fish;
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "input" "gamemode" ];
+  };
+
+  # --- PERFORMANCE ---
+  programs.gamemode.enable = true;
+  zramSwap.enable = true;
+  services.fstrim.enable = true;
+
+  # --- JOGOS E STEAM ---
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    gamescopeSession.enable = true;
+  };
+
+  services.flatpak.enable = true;
+
+  # --- AMBIENTE ---
+  environment.sessionVariables = {
+    TERMINAL = "alacritty";
+    NIXOS_OZONE_WL = "1";          # apps Electron (Discord, Obsidian, Zed...) nativos em Wayland
+  };
+
+  # --- FONTES ---
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-color-emoji
+  ];
+
+  # --- PACOTES DO SISTEMA ---
+  programs.firefox.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    # Sistema
+    vim
+    wget
+    curl
+    git
+    pciutils
+    unzip
+    htop
+    fastfetch
+
+    # Terminal e desenvolvimento
+    alacritty
+    neovim
+    ripgrep
+    fd
+    fzf
+    gcc
+    gnumake
+    claude-code
+    zed-editor
+    github-desktop
+    jetbrains-toolbox              # instala o IntelliJ (assinatura Ultimate)
+
+    # Arquivos e produtividade
+    nautilus
+    obsidian
+    onlyoffice-desktopeditors
+
+    # Engenharia
+    freecad
+    kicad
+
+    # Pessoais
+    discord                        # ou vesktop (melhor compartilhamento de tela no Wayland)
+    spotify
+
+    # Jogos
+    lutris
+    bottles
+    protonup-qt
+    mangohud
+    winetricks
+    wowup-cf
+  ];
+
+  # NÃO altere: indica a versão em que o sistema foi instalado, não a versão atual.
+  # Em instalação nova, mantenha o valor que o instalador gerou.
+  system.stateVersion = "26.05";
+}

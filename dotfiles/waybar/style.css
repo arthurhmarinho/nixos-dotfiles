@@ -1,0 +1,63 @@
+/* ~/.config/waybar/style.css — preto sólido, blocos separados por linhas finas */
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 12px;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  min-width: 0;
+}
+
+window#waybar {
+  background: #111111;
+  color: #8a8a8a;
+  border-right: 1px solid #2a2a2a;
+}
+
+tooltip {
+  background: #111111;
+  border: 1px solid #2a2a2a;
+}
+tooltip label { color: #d0d0d0; }
+
+/* Workspaces: números, ativo em cinza claro com marcador verde */
+#workspaces button {
+  padding: 8px 0;
+  color: #5a5a5a;
+  background: transparent;
+  border-bottom: 1px solid #2a2a2a;
+}
+#workspaces button.focused {
+  color: #d0d0d0;
+  background: #1a1a1a;
+  box-shadow: inset 3px 0 #7fb069;
+}
+#workspaces button.urgent { color: #c75f5f; }
+#workspaces button:hover {
+  background: #1a1a1a;
+  box-shadow: inset 3px 0 #2a2a2a;
+}
+
+#mode {
+  color: #111111;
+  background: #7fb069;
+  padding: 8px 0;
+}
+
+/* Blocos da parte de baixo */
+#tray,
+#network,
+#pulseaudio,
+#cpu,
+#memory,
+#clock,
+#custom-power {
+  padding: 8px 0;
+  border-top: 1px solid #2a2a2a;
+}
+
+#network               { color: #7fb069; }
+#network.disconnected  { color: #c75f5f; }
+#pulseaudio.muted      { color: #5a5a5a; }
+#clock                 { color: #d0d0d0; }
+#custom-power          { color: #7fb069; padding: 10px 0; }
