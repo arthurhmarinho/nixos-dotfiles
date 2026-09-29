@@ -6,6 +6,8 @@
       ./hardware-configuration.nix
       # Tema SilentSDDM (vem do flake.nix)
       inputs.silentSDDM.nixosModules.default
+      # GPU (Mesa/RADV + Vulkan)
+      ./modules/gpu-vulkan.nix
     ];
 
   # --- NIX ---
@@ -29,15 +31,9 @@
 
   # --- KERNEL E HARDWARE (Ryzen + RX580) ---
   boot.kernelPackages = pkgs.linuxPackages_zen;       # baixa latência, desktop/jogos
-  hardware.amdgpu.initrd.enable = true;               # carrega o amdgpu cedo no boot
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.amd.updateMicrocode = true;
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;                               # necessário para Steam/Wine
-  };
-  # Obs: o ROCm não suporta mais a RX580 (gfx803). Para IA local, use backends Vulkan.
+  # GPU e Vulkan: ver modules/gpu-vulkan.nix
 
   hardware.bluetooth.enable = true;
 
