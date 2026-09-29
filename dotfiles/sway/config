@@ -121,7 +121,7 @@ bindsym $mod+d exec $menu
 bindsym $mod+space exec $menu
 bindsym $mod+q kill
 bindsym $mod+Alt+l exec $lock
-bindsym $mod+Shift+e exec swaynag -t warning -m 'Sair do Sway?' -B 'Sair' 'swaymsg exit'
+bindsym $mod+Shift+e exec ~/.config/waybar/scripts/powermenu.sh
 # tecla física "/" (bindcode = posição, independe do layout br)
 bindcode $mod+Shift+61 exec ~/.config/sway/scripts/keybinds.sh
 bindsym $mod+Shift+c reload

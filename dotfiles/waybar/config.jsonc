@@ -1,94 +1,169 @@
-// ~/.config/waybar/config.jsonc — barra vertical à esquerda
+// ~/.config/waybar/config.jsonc — ilhas flutuantes no topo (só no monitor principal)
 {
   "layer": "top",
-  "position": "left",
+  "position": "top",
   "output": "DP-1",
-  "width": 46,
-  "spacing": 0,
-  "modules-left": [
-    "sway/workspaces",
-    "sway/mode"
-  ],
-  "modules-center": [],
-  "modules-right": [
-    "tray",
-    "network",
-    "pulseaudio",
-    "cpu",
-    "memory",
-    "clock#date",
-    "clock",
-    "custom/power"
-  ],
+  "height": 34,
+  "margin-top": 6,
+  "margin-left": 10,
+  "margin-right": 10,
+  "spacing": 8,
+
+  "modules-left":   ["group/left"],
+  "modules-center": ["sway/window", "mpris"],
+  "modules-right":  ["group/stats", "group/system", "clock", "custom/power"],
+
+  // ------------------------------- grupos (ilhas) -------------------------------
+  "group/left": {
+    "orientation": "horizontal",
+    "modules": ["custom/launcher", "sway/workspaces", "sway/mode", "sway/scratchpad"]
+  },
+  "group/stats": {
+    "orientation": "horizontal",
+    "modules": ["cpu", "temperature#cpu", "memory", "custom/gpu", "temperature#gpu"]
+  },
+  "group/system": {
+    "orientation": "horizontal",
+    "modules": ["network", "pulseaudio", "bluetooth", "tray"]
+  },
+
+  // ---------------------------------- esquerda ----------------------------------
+  "custom/launcher": {
+    "format": "󱄅",
+    "tooltip": false,
+    "on-click": "fuzzel"
+  },
   "sway/workspaces": {
     "disable-scroll": false,
     "all-outputs": false,
-    "format": "{name}"
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "󰈹",
+      "3": "",
+      "4": "󰉋",
+      "5": "󰙯",
+      "6": "󰎆",
+      "7": "󰊴",
+      "8": "󰇮",
+      "9": "󰋩",
+      "default": ""
+    }
   },
   "sway/mode": {
-    "format": "{}",
-    "rotate": 90
+    "format": "󰩨 {}"
   },
-  "tray": {
+  "sway/scratchpad": {
+    "format": "󰖲 {count}",
+    "show-empty": false,
+    "tooltip-format": "{app}: {title}"
+  },
+
+  // ----------------------------------- centro -----------------------------------
+  "sway/window": {
+    "format": "{title}",
+    "max-length": 60,
+    "icon": true,
     "icon-size": 16,
-    "spacing": 10
+    "tooltip": false
+  },
+  "mpris": {
+    "format": "{player_icon} {artist} – {title}",
+    "format-paused": "{status_icon} <i>{artist} – {title}</i>",
+    "player-icons": { "default": "󰎈", "spotify": "", "firefox": "󰈹" },
+    "status-icons": { "paused": "󰏤" },
+    "max-length": 45,
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
+  },
+
+  // ----------------------------------- direita ----------------------------------
+  "cpu": {
+    "format": " {usage}%",
+    "interval": 3,
+    "on-click": "alacritty -e htop"
+  },
+  "temperature#cpu": {
+    // k10temp (Ryzen) — caminho fixo, não muda entre boots
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 85,
+    "format": "{temperatureC}°",
+    "tooltip-format": "CPU: {temperatureC}°C"
+  },
+  "memory": {
+    "format": "󰍛 {percentage}%",
+    "interval": 5,
+    "tooltip-format": "RAM: {used:0.1f} / {total:0.1f} GiB\nSwap: {swapUsed:0.1f} / {swapTotal:0.1f} GiB"
+  },
+  "custom/gpu": {
+    "exec": "cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -1",
+    "format": "󰢮 {}%",
+    "interval": 3,
+    "tooltip": false
+  },
+  "temperature#gpu": {
+    // amdgpu (RX580)
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:01.1/0000:01:00.0/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 85,
+    "format": "{temperatureC}°",
+    "tooltip-format": "GPU: {temperatureC}°C"
   },
   "network": {
     "format-ethernet": "󰈀",
-    "format-wifi": "\n{signalStrength}",
-    "format-disconnected": "",
-    "tooltip-format-ethernet": "{ifname}  {ipaddr}",
-    "tooltip-format-wifi": "{essid}  {ipaddr}",
+    "format-wifi": "{icon}",
+    "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+    "format-disconnected": "󰤮",
+    "tooltip-format-ethernet": "{ifname}  {ipaddr}\n {bandwidthDownBytes}   {bandwidthUpBytes}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)  {ipaddr}\n {bandwidthDownBytes}   {bandwidthUpBytes}",
     "tooltip-format-disconnected": "Sem conexão",
-    "justify": "center",
+    "interval": 5,
     "on-click": "alacritty -e nmtui"
   },
   "pulseaudio": {
-    "format": "{icon}\n{volume}",
-    "format-muted": "\nmudo",
-    "format-icons": {
-      "default": [
-        "",
-        "",
-        ""
-      ]
-    },
-    "justify": "center",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟 mudo",
+    "format-icons": { "headphone": "󰋋", "default": ["󰕿", "󰖀", "󰕾"] },
     "scroll-step": 5,
     "on-click": "pavucontrol",
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
   },
-  "cpu": {
-    "format": "\n{usage}",
-    "interval": 5,
-    "justify": "center"
+  "bluetooth": {
+    "format": "󰂯",
+    "format-disabled": "󰂲",
+    "format-off": "󰂲",
+    "format-connected": "󰂱 {num_connections}",
+    "format-no-controller": "",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}"
   },
-  "memory": {
-    "format": "󰍛\n{percentage}",
-    "interval": 10,
-    "justify": "center",
-    "tooltip-format": "{used:0.1f} / {total:0.1f} GiB"
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
   },
-  "clock#date": {
-    "format": "{:%d\n%m}",
-    "justify": "center",
+  "clock": {
+    "format": "󰥔 {:%H:%M}",
+    "format-alt": "󰃭 {:%a, %d %b  %H:%M}",
     "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
       "mode": "month",
+      "on-scroll": 1,
       "format": {
-        "today": "<span color='#7fb069'><b>{}</b></span>"
+        "months":   "<span color='#d0d0d0'><b>{}</b></span>",
+        "weekdays": "<span color='#7fb069'><b>{}</b></span>",
+        "today":    "<span color='#111111' background='#7fb069'><b>{}</b></span>"
       }
+    },
+    "actions": {
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
     }
-  },
-  "clock": {
-    "format": "{:%H\n%M}",
-    "interval": 30,
-    "justify": "center",
-    "tooltip": false
   },
   "custom/power": {
     "format": "⏻",
     "tooltip": false,
-    "on-click": "swaynag -t warning -m 'Energia' -B 'Desligar' 'systemctl poweroff' -B 'Reiniciar' 'systemctl reboot' -B 'Sair do Sway' 'swaymsg exit'"
+    "on-click": "~/.config/waybar/scripts/powermenu.sh"
   }
 }

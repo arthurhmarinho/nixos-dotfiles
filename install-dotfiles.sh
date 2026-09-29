@@ -16,7 +16,7 @@ for app in sway waybar mako fuzzel swaylock; do
   echo "  ✔ $app"
 done
 
-chmod +x "$HOME/.config/sway/scripts/"*.sh
+chmod +x "$HOME/.config/sway/scripts/"*.sh "$HOME/.config/waybar/scripts/"*.sh
 mkdir -p "$HOME/Pictures/Screenshots"
 
 # Wallpaper opcional

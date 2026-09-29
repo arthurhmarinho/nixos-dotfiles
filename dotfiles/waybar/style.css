@@ -1,63 +1,115 @@
-/* ~/.config/waybar/style.css — preto sólido, blocos separados por linhas finas */
+/* ~/.config/waybar/style.css — ilhas flutuantes, preto + verde */
+@define-color bg      rgba(17, 17, 17, 0.82);
+@define-color bg_hi   #1c1c1c;
+@define-color fg      #8a8a8a;
+@define-color fg_hi   #d0d0d0;
+@define-color line    #2a2a2a;
+@define-color accent  #7fb069;
+@define-color urgent  #c75f5f;
+
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 12px;
+  font-size: 13px;
   border: none;
   border-radius: 0;
   min-height: 0;
-  min-width: 0;
 }
 
+/* A barra em si é transparente: só as ilhas têm fundo */
 window#waybar {
-  background: #111111;
-  color: #8a8a8a;
-  border-right: 1px solid #2a2a2a;
+  background: transparent;
+  color: @fg_hi;
 }
 
 tooltip {
   background: #111111;
-  border: 1px solid #2a2a2a;
+  border: 1px solid @accent;
 }
-tooltip label { color: #d0d0d0; }
+tooltip label { color: @fg_hi; }
 
-/* Workspaces: números, ativo em cinza claro com marcador verde */
-#workspaces button {
-  padding: 8px 0;
-  color: #5a5a5a;
+/* ---------------------------------- ilhas ---------------------------------- */
+#left,
+#stats,
+#system,
+#window,
+#mpris,
+#clock,
+#custom-power {
+  background: @bg;
+  border: 1px solid @line;
+  padding: 0 12px;
+}
+
+/* sem janela focada: esconde a ilha do título */
+window#waybar.empty #window {
   background: transparent;
-  border-bottom: 1px solid #2a2a2a;
+  border-color: transparent;
+}
+
+/* ---------------------------------- esquerda ---------------------------------- */
+#left { padding: 0 4px 0 0; }
+
+#custom-launcher {
+  color: #111111;
+  background: @accent;
+  font-size: 16px;
+  padding: 0 12px 0 10px;
+  margin-right: 4px;
+}
+
+#workspaces button {
+  color: @fg;
+  background: transparent;
+  padding: 0 9px;
+  box-shadow: inset 0 -2px transparent;
+}
+#workspaces button:hover {
+  background: @bg_hi;
+  box-shadow: inset 0 -2px @line;
 }
 #workspaces button.focused {
-  color: #d0d0d0;
-  background: #1a1a1a;
-  box-shadow: inset 3px 0 #7fb069;
+  color: @accent;
+  background: @bg_hi;
+  box-shadow: inset 0 -2px @accent;
 }
-#workspaces button.urgent { color: #c75f5f; }
-#workspaces button:hover {
-  background: #1a1a1a;
-  box-shadow: inset 3px 0 #2a2a2a;
-}
+#workspaces button.urgent { color: @urgent; }
 
 #mode {
   color: #111111;
-  background: #7fb069;
-  padding: 8px 0;
+  background: @accent;
+  padding: 0 10px;
+}
+#scratchpad { color: @fg; padding: 0 8px; }
+
+/* ----------------------------------- centro ----------------------------------- */
+#window { color: @fg_hi; }
+#mpris  { color: @accent; }
+#mpris.paused { color: @fg; }
+
+/* ----------------------------------- direita ---------------------------------- */
+#cpu, #temperature, #memory, #custom-gpu,
+#network, #pulseaudio, #bluetooth, #tray {
+  padding: 0 6px;
 }
 
-/* Blocos da parte de baixo */
-#tray,
-#network,
-#pulseaudio,
-#cpu,
-#memory,
-#clock,
+#cpu, #memory, #custom-gpu { color: @fg_hi; }
+#temperature               { color: @fg; margin-right: 6px; }
+#temperature.critical      { color: @urgent; }
+
+#network              { color: @accent; }
+#network.disconnected { color: @urgent; }
+#pulseaudio           { color: @fg_hi; }
+#pulseaudio.muted     { color: @fg; }
+#bluetooth.connected  { color: @accent; }
+
+#clock { color: @fg_hi; }
+
 #custom-power {
-  padding: 8px 0;
-  border-top: 1px solid #2a2a2a;
+  color: @accent;
+  padding: 0 14px;
 }
-
-#network               { color: #7fb069; }
-#network.disconnected  { color: #c75f5f; }
-#pulseaudio.muted      { color: #5a5a5a; }
-#clock                 { color: #d0d0d0; }
-#custom-power          { color: #7fb069; padding: 10px 0; }
+#custom-power:hover {
+  color: #111111;
+  background: @urgent;
+  border-color: @urgent;
+}
