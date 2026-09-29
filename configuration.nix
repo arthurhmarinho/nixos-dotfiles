@@ -276,7 +276,7 @@
     gnumake
     claude-code
     zed-editor
-    github-desktop
+    (callPackage ./pkgs/github-desktop-url-fix.nix { })   # corrige o login pelo navegador
     jetbrains-toolbox              # instala o IntelliJ (assinatura Ultimate)
 
     # Arquivos e produtividade
