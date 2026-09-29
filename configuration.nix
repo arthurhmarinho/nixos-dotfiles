@@ -8,6 +8,8 @@
       inputs.silentSDDM.nixosModules.default
       # GPU (Mesa/RADV + Vulkan)
       ./modules/gpu-vulkan.nix
+      # LLM local: llama-server (Vulkan) em 127.0.0.1:8080
+      ./modules/llama-server.nix
     ];
 
   # --- NIX ---
