@@ -97,7 +97,31 @@
   programs.silentSDDM = {
     enable = true;
     theme = "default";   # presets: default, rei, ken, silvia, everforest, nord, catppuccin-*
-    # settings = { ... }; # personalização (ver o exemplo no flake.nix do SilentSDDM)
+
+    # Mesmo wallpaper do desktop e foto do usuário (arquivos em ./assets)
+    backgrounds.rubi = ./assets/sddm-wallpaper.png;
+    profileIcons.arthur = ./assets/johnny-joestar.jpg;
+
+    # Opções: https://github.com/uiriansan/SilentSDDM/wiki/Options
+    settings = {
+      "LockScreen"  = { background = "sddm-wallpaper.png"; };
+      "LoginScreen" = { background = "sddm-wallpaper.png"; };
+      "LoginScreen.LoginArea.Avatar" = {
+        shape = "circle";
+        active-border-size = 2;
+        active-border-color = "#e0533d";
+      };
+      "LoginScreen.LoginArea.PasswordInput" = {
+        background-color = "#121010";
+        background-opacity = 0.6;
+      };
+      "LoginScreen.LoginArea.LoginButton" = {
+        background-color = "#e0533d";
+        background-opacity = 0.6;
+        active-background-color = "#e0533d";
+        active-background-opacity = 0.9;
+      };
+    };
   };
 
   # Portais (compartilhar tela, seletor de arquivos)

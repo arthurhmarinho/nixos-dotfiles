@@ -27,7 +27,7 @@ symbol = " "
 show_always = true
 style_user = "bold accent"
 style_root = "bold warn"
-format = "[ $user]($style)"
+format = "[󰀄 $user]($style)"
 
 [hostname]
 ssh_only = false
@@ -42,10 +42,10 @@ truncation_length = 4
 truncation_symbol = "…/"
 truncate_to_repo = false
 home_symbol = "~"
-format = "[ $path]($style)[$read_only]($read_only_style) "
+format = "[󰉋 $path]($style)[$read_only]($read_only_style) "
 
 [git_branch]
-symbol = " "
+symbol = "󰘬 "
 style = "accent"
 format = "[on](muted) [$symbol$branch]($style) "
 
@@ -68,27 +68,27 @@ style = "accent"
 format = "[via](muted) [$symbol$state( \\($name\\))]($style) "
 
 [python]
-symbol = " "
+symbol = "󰌠 "
 style = "warn"
 format = "[$symbol$version( \\($virtualenv\\))]($style) "
 
 [nodejs]
-symbol = " "
+symbol = "󰎙 "
 style = "warn"
 format = "[$symbol$version]($style) "
 
 [rust]
-symbol = " "
+symbol = "󱘗 "
 style = "warn"
 format = "[$symbol$version]($style) "
 
 [java]
-symbol = " "
+symbol = "󰬷 "
 style = "warn"
 format = "[$symbol$version]($style) "
 
 [c]
-symbol = " "
+symbol = "󰙱 "
 style = "warn"
 format = "[$symbol$version]($style) "
 
