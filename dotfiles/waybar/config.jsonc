@@ -17,7 +17,7 @@
   // ------------------------------- grupos (ilhas) -------------------------------
   "group/stats": {
     "orientation": "vertical",
-    "modules": ["cpu", "temperature#cpu", "memory", "custom/gpu", "temperature#gpu"]
+    "modules": ["cpu", "temperature#cpu", "custom/gpu", "temperature#gpu", "memory"]
   },
   "group/system": {
     "orientation": "vertical",
@@ -59,7 +59,7 @@
 
   // ------------------------------------ base ------------------------------------
   "cpu": {
-    "format": "󰻠\n{usage}",
+    "format": "<span color='#e0533d' size='7pt'>CPU</span>\n<span size='8pt'>{usage}%</span>",
     "justify": "center",
     "interval": 3,
     "tooltip-format": "CPU: {usage}%",
@@ -75,14 +75,14 @@
     "tooltip-format": "CPU: {temperatureC}°C"
   },
   "memory": {
-    "format": "󰍛\n{percentage}",
+    "format": "<span color='#e0533d' size='7pt'>RAM</span>\n<span size='8pt'>{percentage}%</span>",
     "justify": "center",
     "interval": 5,
     "tooltip-format": "RAM: {used:0.1f} / {total:0.1f} GiB"
   },
   "custom/gpu": {
     "exec": "cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -1",
-    "format": "󰢮\n{}",
+    "format": "<span color='#e0533d' size='7pt'>GPU</span>\n<span size='8pt'>{}%</span>",
     "justify": "center",
     "interval": 3,
     "tooltip": false

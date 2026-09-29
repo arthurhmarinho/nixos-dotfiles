@@ -96,16 +96,24 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 /* ----------------------------------- base ----------------------------------- */
 #stats, #system { padding: 4px 0; }
 
-#cpu, #memory, #custom-gpu, #pulseaudio {
+#cpu, #memory, #custom-gpu {
+  color: @fg_hi;
+  padding: 5px 0 1px 0;
+}
+#pulseaudio {
   color: @fg_hi;
   padding: 4px 0 1px 0;
 }
+/* temperatura fecha o bloco de CPU/GPU, com linha separadora */
 #temperature {
   color: @fg;
   font-size: 8px;
-  padding: 0 0 4px 0;
+  padding: 0 0 5px 0;
+  margin: 0 6px;
+  border-bottom: 1px solid @line;
 }
 #temperature.critical { color: @urgent; }
+#memory { padding-bottom: 5px; }
 
 #tray       { padding: 4px 0; }
 #bluetooth  { color: @fg_hi; padding: 4px 0; font-size: 12px; }

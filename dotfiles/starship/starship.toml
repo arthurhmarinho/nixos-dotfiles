@@ -1,0 +1,109 @@
+# ~/.config/starship.toml — paleta vermelha
+# Linha 1: usuário@host · pasta · git · linguagem/nix · duração
+# Linha 2: ❯
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+palette = "rubi"
+
+format = """
+[╭─](line)$username$hostname$directory$git_branch$git_status\
+$nix_shell$python$nodejs$rust$java$c\
+$fill$cmd_duration$status
+[╰─](line)$character"""
+
+[palettes.rubi]
+accent = "#e0533d"
+deep   = "#942e17"
+text   = "#e2d2c0"
+muted  = "#8a7f7c"
+line   = "#5a4f4c"
+warn   = "#e5a04b"
+
+[fill]
+symbol = " "
+
+[username]
+show_always = true
+style_user = "bold accent"
+style_root = "bold warn"
+format = "[ $user]($style)"
+
+[hostname]
+ssh_only = false
+style = "muted"
+format = "[@$hostname]($style) "
+
+[directory]
+style = "bold text"
+read_only = " 󰌾"
+read_only_style = "warn"
+truncation_length = 4
+truncation_symbol = "…/"
+truncate_to_repo = false
+home_symbol = "~"
+format = "[ $path]($style)[$read_only]($read_only_style) "
+
+[git_branch]
+symbol = " "
+style = "accent"
+format = "[on](muted) [$symbol$branch]($style) "
+
+[git_status]
+style = "warn"
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = "="
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+modified = "!${count}"
+staged = "+${count}"
+deleted = "✘${count}"
+stashed = "≡"
+
+[nix_shell]
+symbol = "󱄅 "
+style = "accent"
+format = "[via](muted) [$symbol$state( \\($name\\))]($style) "
+
+[python]
+symbol = " "
+style = "warn"
+format = "[$symbol$version( \\($virtualenv\\))]($style) "
+
+[nodejs]
+symbol = " "
+style = "warn"
+format = "[$symbol$version]($style) "
+
+[rust]
+symbol = " "
+style = "warn"
+format = "[$symbol$version]($style) "
+
+[java]
+symbol = " "
+style = "warn"
+format = "[$symbol$version]($style) "
+
+[c]
+symbol = " "
+style = "warn"
+format = "[$symbol$version]($style) "
+
+[cmd_duration]
+min_time = 2000
+style = "muted"
+format = "[󰔟 $duration]($style) "
+
+[status]
+disabled = false
+symbol = "✘ "
+style = "accent"
+format = "[$symbol$status]($style) "
+
+[character]
+success_symbol = "[❯](bold accent)"
+error_symbol = "[❯](bold warn)"
+vimcmd_symbol = "[❮](bold text)"

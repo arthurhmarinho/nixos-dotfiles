@@ -6,7 +6,7 @@ set -euo pipefail
 SRC="$(cd "$(dirname "$0")" && pwd)/dotfiles"
 BACKUP="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
 
-for app in sway waybar mako fuzzel swaylock alacritty; do
+for app in sway waybar mako fuzzel swaylock alacritty fastfetch; do
   if [ -e "$HOME/.config/$app" ]; then
     mkdir -p "$BACKUP"
     mv "$HOME/.config/$app" "$BACKUP/"
@@ -17,6 +17,17 @@ for app in sway waybar mako fuzzel swaylock alacritty; do
 done
 
 chmod +x "$HOME/.config/sway/scripts/"*.sh "$HOME/.config/waybar/scripts/"*.sh
+
+# Arquivos avulsos (sem substituir a pasta inteira: o fish guarda histórico/variáveis lá)
+mkdir -p "$HOME/.config/fish"
+for f in fish/config.fish; do
+  [ -e "$HOME/.config/$f" ] && mkdir -p "$BACKUP/$(dirname "$f")" && cp "$HOME/.config/$f" "$BACKUP/$f"
+  cp "$SRC/$f" "$HOME/.config/$f"
+  echo "  ✔ $f"
+done
+[ -e "$HOME/.config/starship.toml" ] && mkdir -p "$BACKUP" && cp "$HOME/.config/starship.toml" "$BACKUP/"
+cp "$SRC/starship/starship.toml" "$HOME/.config/starship.toml"
+echo "  ✔ starship.toml"
 mkdir -p "$HOME/Pictures/Screenshots"
 
 # Wallpaper opcional
