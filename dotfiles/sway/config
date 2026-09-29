@@ -1,5 +1,5 @@
 # =============================================================================
-#  ~/.config/sway/config — ricing minimalista (preto + verde)
+#  ~/.config/sway/config — ricing minimalista (preto + vermelho)
 #  Atalhos espelhados no niri do Void. Veja todos com: Super+Shift+/
 # =============================================================================
 
@@ -9,12 +9,12 @@ set $menu  fuzzel
 set $lock  swaylock -f
 
 # Paleta
-set $bg     #111111
-set $fg     #8a8a8a
-set $fg_hi  #d0d0d0
-set $line   #2a2a2a
-set $accent #7fb069
-set $urgent #c75f5f
+set $bg     #121010
+set $fg     #8a7f7c
+set $fg_hi  #e2d2c0
+set $line   #2e2424
+set $accent #e0533d
+set $urgent #e5a04b
 
 # ------------------------------- aparência -----------------------------------
 font pango:JetBrainsMono Nerd Font 10
@@ -37,7 +37,7 @@ blur_passes 2
 blur_radius 4
 default_dim_inactive 0.08
 dim_inactive_colors.unfocused #000000ff
-dim_inactive_colors.urgent    #c75f5fff
+dim_inactive_colors.urgent    #e5a04bff
 # Blur/cantos atrás da barra, notificações e launcher
 layer_effects "waybar" blur enable; blur_ignore_transparent enable; shadows disable
 layer_effects "notifications" blur enable; shadows enable
@@ -49,9 +49,8 @@ client.focused_inactive $line    $bg    $fg     $line     $line
 client.unfocused        $line    $bg    $fg     $line     $line
 client.urgent           $urgent  $bg    $fg_hi  $urgent   $urgent
 
-# Wallpaper: copie a imagem para ~/.config/sway/wallpaper.png e troque as linhas
-output * bg $bg solid_color
-# output * bg ~/.config/sway/wallpaper.png fill $bg
+# Wallpaper (vem de dotfiles/sway/wallpaper.png)
+output * bg ~/.config/sway/wallpaper.png fill $bg
 
 # --------------------------------- monitores ---------------------------------
 # Identificados por marca/modelo/serial (não mudam se trocar de porta).
@@ -80,6 +79,9 @@ input type:keyboard {
     repeat_delay 300
     repeat_rate 40
 }
+
+# Cursor (tema instalado pelo configuration.nix)
+seat seat0 xcursor_theme capitaine-cursors 24
 
 input type:pointer {
     accel_profile flat

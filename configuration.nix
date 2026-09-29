@@ -164,6 +164,52 @@
   environment.sessionVariables = {
     TERMINAL = "alacritty";
     NIXOS_OZONE_WL = "1";          # apps Electron (Discord, Obsidian, Zed...) nativos em Wayland
+    XCURSOR_THEME = "capitaine-cursors";
+    XCURSOR_SIZE = "24";
+  };
+
+  # --- TEMA (GTK, Qt, ícones, cursor) — paleta vermelha ---
+  # GTK: WhiteSur escuro com destaque vermelho · Ícones: MacTahoe vermelho
+  # Cursor: Capitaine. Os apps GTK no Wayland leem o dconf (não o settings.ini).
+  # (os pacotes do tema estão em environment.systemPackages, seção "Tema")
+
+  programs.dconf = {
+    enable = true;
+    profiles.user.databases = [{
+      settings."org/gnome/desktop/interface" = {
+        gtk-theme = "WhiteSur-Dark-red";
+        icon-theme = "MacTahoe-red-dark";
+        cursor-theme = "capitaine-cursors";
+        cursor-size = pkgs.lib.gvariant.mkInt32 24;
+        color-scheme = "prefer-dark";
+        font-name = "Noto Sans 10";
+        monospace-font-name = "JetBrainsMono Nerd Font 10";
+      };
+    }];
+  };
+
+  # Apps X11/Xwayland e outros toolkits
+  environment.etc."xdg/gtk-3.0/settings.ini".text = ''
+    [Settings]
+    gtk-theme-name=WhiteSur-Dark-red
+    gtk-icon-theme-name=MacTahoe-red-dark
+    gtk-cursor-theme-name=capitaine-cursors
+    gtk-cursor-theme-size=24
+    gtk-application-prefer-dark-theme=1
+    gtk-font-name=Noto Sans 10
+  '';
+
+  # Qt: lê ícones/fontes/modo escuro do dconf (acima) + estilo escuro
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
+
+  # Cursor no SDDM
+  services.displayManager.sddm.settings.Theme = {
+    CursorTheme = "capitaine-cursors";
+    CursorSize = 24;
   };
 
   # --- FONTES ---
@@ -177,6 +223,15 @@
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
+    # Tema
+    (whitesur-gtk-theme.override {
+      colorVariants = [ "dark" ];
+      themeVariants = [ "red" ];
+      opacityVariants = [ "normal" ];
+    })
+    (callPackage ./pkgs/mactahoe-icon-theme.nix { themeVariants = [ "red" ]; })
+    capitaine-cursors
+
     # Sistema
     vim
     wget

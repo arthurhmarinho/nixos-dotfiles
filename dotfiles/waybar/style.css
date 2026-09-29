@@ -1,11 +1,11 @@
-/* ~/.config/waybar/style.css — vertical, ilhas arredondadas, preto + verde */
-@define-color bg      rgba(17, 17, 17, 0.85);
-@define-color bg_hi   #222222;
-@define-color fg      #6f6f6f;
-@define-color fg_hi   #d0d0d0;
-@define-color line    #262626;
-@define-color accent  #7fb069;
-@define-color urgent  #c75f5f;
+/* ~/.config/waybar/style.css — vertical, ilhas arredondadas, preto + vermelho */
+@define-color bg      rgba(18, 16, 16, 0.85);
+@define-color bg_hi   #241c1c;
+@define-color fg      #7a6f6c;
+@define-color fg_hi   #e2d2c0;
+@define-color line    #2e2424;
+@define-color accent  #e0533d;
+@define-color urgent  #e5a04b;
 
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
@@ -24,7 +24,7 @@ window#waybar {
 }
 
 tooltip {
-  background: #111111;
+  background: #121010;
   border: 1px solid @accent;
   border-radius: 8px;
 }
@@ -51,13 +51,13 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 }
 #custom-launcher:hover { background: @bg_hi; }
 
-#workspaces { padding: 4px 0; }
+#workspaces { padding: 0; }
 #workspaces button {
   color: @fg;
   background: transparent;
-  margin: 2px 3px;
+  margin: 2px;
   padding: 0;
-  min-height: 22px;
+  min-height: 21px;
   border-radius: 8px;
 }
 #workspaces button:hover {
@@ -65,16 +65,16 @@ tooltip label { color: @fg_hi; font-weight: normal; }
   background: @bg_hi;
 }
 #workspaces button.focused {
-  color: #111111;
+  color: #121010;
   background: @accent;
 }
 #workspaces button.urgent {
-  color: #111111;
+  color: #121010;
   background: @urgent;
 }
 
 #mode {
-  color: #111111;
+  color: #121010;
   background: @accent;
   border-radius: 11px;
   padding: 4px 0;
@@ -121,11 +121,11 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 }
 
 #custom-power {
-  color: @urgent;
+  color: @accent;
   font-size: 12px;
   padding: 5px 0;
 }
 #custom-power:hover {
-  color: #111111;
-  background: @urgent;
+  color: #121010;
+  background: @accent;
 }

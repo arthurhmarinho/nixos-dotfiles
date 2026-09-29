@@ -6,7 +6,7 @@ set -euo pipefail
 SRC="$(cd "$(dirname "$0")" && pwd)/dotfiles"
 BACKUP="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
 
-for app in sway waybar mako fuzzel swaylock; do
+for app in sway waybar mako fuzzel swaylock alacritty; do
   if [ -e "$HOME/.config/$app" ]; then
     mkdir -p "$BACKUP"
     mv "$HOME/.config/$app" "$BACKUP/"

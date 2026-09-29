@@ -1,0 +1,55 @@
+# ~/.config/alacritty/alacritty.toml — transparente (blur vem do SwayFX), paleta vermelha
+
+[window]
+opacity = 0.85
+padding = { x = 12, y = 10 }
+dynamic_padding = true
+
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+size = 11
+
+# Cursor em linha fina (não o bloco)
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+vi_mode_style = { shape = "Block", blinking = "Off" }
+blink_interval = 600
+thickness = 0.12
+unfocused_hollow = true
+
+[colors.primary]
+background = "#121010"
+foreground = "#e2d2c0"
+
+[colors.cursor]
+text   = "#121010"
+cursor = "#e0533d"
+
+[colors.selection]
+text       = "CellForeground"
+background = "#3a2622"
+
+[colors.normal]
+black   = "#1e1818"
+red     = "#e0533d"
+green   = "#9aa86a"
+yellow  = "#e5a04b"
+blue    = "#7c8fa6"
+magenta = "#c9788a"
+cyan    = "#8fb3a8"
+white   = "#e2d2c0"
+
+[colors.bright]
+black   = "#5a4f4c"
+red     = "#f0715c"
+green   = "#b4c283"
+yellow  = "#f0b86a"
+blue    = "#98aac0"
+magenta = "#dd96a6"
+cyan    = "#a9ccc1"
+white   = "#f4e8da"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

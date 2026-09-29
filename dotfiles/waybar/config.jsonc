@@ -139,9 +139,9 @@
       "mode": "month",
       "on-scroll": 1,
       "format": {
-        "months":   "<span color='#d0d0d0'><b>{}</b></span>",
-        "weekdays": "<span color='#7fb069'><b>{}</b></span>",
-        "today":    "<span color='#111111' background='#7fb069'><b>{}</b></span>"
+        "months":   "<span color='#e2d2c0'><b>{}</b></span>",
+        "weekdays": "<span color='#e0533d'><b>{}</b></span>",
+        "today":    "<span color='#121010' background='#e0533d'><b>{}</b></span>"
       }
     },
     "actions": {
