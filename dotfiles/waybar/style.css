@@ -46,8 +46,8 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 /* ----------------------------------- topo ----------------------------------- */
 #custom-launcher {
   color: @accent;
-  font-size: 17px;
-  padding: 7px 0;
+  font-size: 16px;
+  padding: 5px 3px 5px 0;
 }
 #custom-launcher:hover { background: @bg_hi; }
 
@@ -55,8 +55,9 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 #workspaces button {
   color: @fg;
   background: transparent;
-  margin: 1px 3px;
-  padding: 2px 0;
+  margin: 2px 3px;
+  padding: 0;
+  min-height: 22px;
   border-radius: 8px;
 }
 #workspaces button:hover {
