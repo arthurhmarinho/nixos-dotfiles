@@ -2,6 +2,7 @@
 {
   "layer": "top",
   "position": "left",
+  "output": "DP-1",
   "width": 46,
   "spacing": 0,
   "modules-left": [

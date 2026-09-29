@@ -98,10 +98,12 @@ floating_modifier $mod normal
 # --- Básico ---
 bindsym $mod+t exec $term
 bindsym $mod+d exec $menu
+bindsym $mod+space exec $menu
 bindsym $mod+q kill
 bindsym $mod+Alt+l exec $lock
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Sair do Sway?' -B 'Sair' 'swaymsg exit'
-bindsym $mod+Shift+slash exec ~/.config/sway/scripts/keybinds.sh
+# tecla física "/" (bindcode = posição, independe do layout br)
+bindcode $mod+Shift+61 exec ~/.config/sway/scripts/keybinds.sh
 bindsym $mod+Shift+c reload
 
 # --- Foco (niri: Super + setas / HJKL) ---
@@ -178,8 +180,9 @@ bindsym $mod+w       layout toggle tabbed split
 bindsym $mod+v       floating toggle
 bindsym $mod+Shift+v focus mode_toggle
 # niri Super+[ / Super+] (consume/expel): no Sway, divide horizontal/vertical
-bindsym $mod+bracketleft  splith
-bindsym $mod+bracketright splitv
+# teclas físicas "[" e "]" (no layout br elas viram acento/[)
+bindcode $mod+34 splith
+bindcode $mod+35 splitv
 
 # Tamanho (niri: Super + - / =, Super + R para larguras)
 bindsym $mod+minus       resize shrink width 10 ppt
