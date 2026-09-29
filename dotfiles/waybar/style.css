@@ -9,7 +9,7 @@
 
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 11px;
+  font-size: 9px;
   font-weight: bold;
   border: none;
   border-radius: 0;
@@ -26,7 +26,7 @@ window#waybar {
 tooltip {
   background: #111111;
   border: 1px solid @accent;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 tooltip label { color: @fg_hi; font-weight: normal; }
 
@@ -40,14 +40,14 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 #custom-power {
   background: @bg;
   border: 1px solid @line;
-  border-radius: 14px;
+  border-radius: 11px;
 }
 
 /* ----------------------------------- topo ----------------------------------- */
 #custom-launcher {
   color: @accent;
-  font-size: 18px;
-  padding: 8px 0;
+  font-size: 17px;
+  padding: 7px 0;
 }
 #custom-launcher:hover { background: @bg_hi; }
 
@@ -55,9 +55,9 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 #workspaces button {
   color: @fg;
   background: transparent;
-  margin: 2px 5px;
-  padding: 4px 0;
-  border-radius: 10px;
+  margin: 1px 3px;
+  padding: 2px 0;
+  border-radius: 8px;
 }
 #workspaces button:hover {
   color: @fg_hi;
@@ -75,20 +75,20 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 #mode {
   color: #111111;
   background: @accent;
-  border-radius: 14px;
-  padding: 6px 0;
+  border-radius: 11px;
+  padding: 4px 0;
   margin-top: 6px;
 }
 #scratchpad {
   color: @fg;
-  padding: 6px 0;
+  padding: 4px 0;
 }
 
 /* ---------------------------------- centro ---------------------------------- */
 #mpris {
   color: @accent;
-  font-size: 15px;
-  padding: 8px 0;
+  font-size: 12px;
+  padding: 5px 0;
 }
 #mpris.paused { color: @fg; }
 
@@ -97,32 +97,32 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 
 #cpu, #memory, #custom-gpu, #pulseaudio {
   color: @fg_hi;
-  padding: 6px 0 2px 0;
+  padding: 4px 0 1px 0;
 }
 #temperature {
   color: @fg;
-  font-size: 10px;
-  padding: 0 0 6px 0;
+  font-size: 8px;
+  padding: 0 0 4px 0;
 }
 #temperature.critical { color: @urgent; }
 
-#tray       { padding: 6px 0; }
-#bluetooth  { color: @fg_hi; padding: 6px 0; font-size: 14px; }
+#tray       { padding: 4px 0; }
+#bluetooth  { color: @fg_hi; padding: 4px 0; font-size: 12px; }
 #bluetooth.connected { color: @accent; }
-#network    { color: @accent; padding: 6px 0; font-size: 14px; }
+#network    { color: @accent; padding: 4px 0; font-size: 12px; }
 #network.disconnected { color: @urgent; }
-#pulseaudio.muted { color: @fg; font-size: 14px; }
+#pulseaudio.muted { color: @fg; font-size: 12px; }
 
 #clock {
   color: @accent;
-  font-size: 12px;
-  padding: 8px 0;
+  font-size: 10px;
+  padding: 5px 0;
 }
 
 #custom-power {
   color: @urgent;
-  font-size: 15px;
-  padding: 8px 0;
+  font-size: 12px;
+  padding: 5px 0;
 }
 #custom-power:hover {
   color: #111111;

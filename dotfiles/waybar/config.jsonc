@@ -4,11 +4,11 @@
   "layer": "top",
   "position": "left",
   "output": "DP-1",
-  "width": 40,
+  "width": 30,
   "margin-top": 8,
   "margin-bottom": 8,
-  "margin-left": 6,
-  "spacing": 8,
+  "margin-left": 5,
+  "spacing": 6,
 
   "modules-left":   ["custom/launcher", "sway/workspaces", "sway/mode", "sway/scratchpad"],
   "modules-center": ["mpris"],
@@ -97,8 +97,8 @@
     "tooltip-format": "GPU: {temperatureC}°C"
   },
   "tray": {
-    "icon-size": 15,
-    "spacing": 8
+    "icon-size": 13,
+    "spacing": 6
   },
   "bluetooth": {
     "format": "󰂯",
