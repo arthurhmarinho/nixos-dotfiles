@@ -12,6 +12,8 @@
       ./modules/llama-server.nix
       # Agente OpenClaw: Node 24 + ~/.local/bin no PATH
       ./modules/openclaw.nix
+      # SSH só com chave (túnel do notebook) + linger
+      ./modules/ssh.nix
     ];
 
   # --- NIX ---
