@@ -18,9 +18,17 @@ in
       host = "127.0.0.1";
       port = 8080;
 
-      # unsloth/Qwen3.5-9B-GGUF (5,68 GB); sem mmproj (visão), não precisamos
-      model = "${modelsDir}/Qwen3.5-9B-Q4_K_M.gguf";
-      alias = "qwen3.5-9b";                           # id retornado em /v1/models
+      # unsloth/Qwen3.5-9B-MTP-GGUF (5,87 GB): mesmos pesos + cabeça MTP
+      # (multi-token prediction) para decodificação especulativa. Sem mmproj.
+      model = "${modelsDir}/Qwen3.5-9B-MTP-Q4_K_M.gguf";
+      alias = "qwen3.5-9b";                           # id retornado em /v1/models (OpenClaw usa)
+
+      # Medido na RX 580 (prompt 7k, resposta de código 400 tok):
+      #   sem MTP 15,7 tok/s · draft 2: 19,3 (+23%, 91% aceitos) · 3: 17,9 · 6: 15,1
+      #   custo: prefill 130 → 122 tok/s. Saída idêntica em distribuição (o modelo
+      #   principal confere cada token do rascunho).
+      spec-type = "draft-mtp";
+      spec-draft-n-max = 2;
 
       ctx-size = 32768;
       n-gpu-layers = "all";                           # todas as camadas na RX 580
