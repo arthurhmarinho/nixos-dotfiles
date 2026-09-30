@@ -10,6 +10,8 @@
       ./modules/gpu-vulkan.nix
       # LLM local: llama-server (Vulkan) em 127.0.0.1:8080
       ./modules/llama-server.nix
+      # Agente OpenClaw: Node 24 + ~/.local/bin no PATH
+      ./modules/openclaw.nix
     ];
 
   # --- NIX ---
