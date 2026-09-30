@@ -1,0 +1,62 @@
+// Ajustes do ~/.openclaw/openclaw.json por cima do que o `openclaw onboard` gera.
+// Aplicar:  openclaw config patch --file ~/nixos-sway/openclaw/openclaw.patch.json5 [--dry-run]
+// Sem segredos aqui: o token do Gateway fica só no ~/.openclaw (0600).
+// Chaves conferidas em `openclaw config schema` (OpenClaw 2026.8.33).
+{
+  models: {
+    providers: {
+      "llama-local": {
+        baseUrl: "http://127.0.0.1:8080/v1",
+        api: "openai-completions",
+        // Prefill a frio do system prompt do agente leva ~40–75 s na RX 580
+        timeoutSeconds: 300,
+        models: [
+          {
+            id: "qwen3.5-9b",                    // = --alias do llama-server (/v1/models)
+            name: "Qwen3.5 9B Q4_K_M (llama.cpp Vulkan)",
+            contextWindow: 32768,                 // = --ctx-size; o onboard pôs 128000
+            maxTokens: 8192,                      // thinking + resposta/tool call
+            input: ["text"],
+            reasoning: true,                      // Qwen3.5 pensa por padrão (<think>)
+            cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+            compat: {
+              supportsTools: true,                // llama-server --jinja
+              // /think off → chat_template_kwargs.enable_thinking=false
+              thinkingFormat: "qwen-chat-template",
+            },
+          },
+        ],
+      },
+    },
+  },
+
+  // Padrão do OpenClaw é executar tudo sem perguntar (security=full, ask=off).
+  // mode "ask": allowlist roda direto, o resto vai para aprovação humana.
+  // (não usar "auto": aí um classificador/LLM aprova no seu lugar)
+  // security/ask são as chaves legadas; null as remove.
+  tools: {
+    exec: {
+      mode: "ask",
+      security: null,
+      ask: null,
+    },
+    // security audit (CRITICAL models.small_params): modelo pequeno + conteúdo
+    // web = prompt injection fácil. Sem web/browser para o modelo local.
+    byProvider: {
+      "llama-local/qwen3.5-9b": { deny: ["group:web", "browser"] },
+    },
+    // Ações privilegiadas: desligadas até haver um caso de uso explícito.
+    elevated: { enabled: false },
+  },
+
+  // Provider padrão de embeddings é "openai" (sem chave aqui); desliga para
+  // não haver tentativa de chamada externa. Embeddings locais: fase futura.
+  memory: {
+    search: { enabled: false, rememberAcrossConversations: false },
+  },
+
+  // Não criar bloco `browser`: qualquer config ali faz o `doctor --fix`
+  // habilitar a ferramenta de navegador. O aviso de relay legado é inócuo
+  // sem extensões pareadas. (null remove, caso tenha sido criado antes)
+  browser: null,
+}
