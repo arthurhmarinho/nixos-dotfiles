@@ -47,6 +47,28 @@
     },
     // Ações privilegiadas: desligadas até haver um caso de uso explícito.
     elevated: { enabled: false },
+    // read/write/edit/apply_patch NÃO passam pela aprovação de exec; sem isto
+    // (padrão false) o agente lê/escreve tudo que o arthur pode (~/.ssh, token...).
+    fs: { workspaceOnly: true },
+    // Ferramentas que não servem para programar (e custam tokens a cada turno)
+    deny: ["dashboard", "conversations_list", "conversations_send",
+           "conversations_turn", "create_goal"],
+  },
+
+  // Workspace = pasta de projetos. Na raiz ficam os arquivos do agente
+  // (AGENTS.md, SOUL.md...); cada projeto numa subpasta com o próprio git.
+  // Prompt do agente medido: ~22k de 32k tokens (30 ferramentas + ~8,5k de
+  // system prompt) → 3 min de prefill a 117 tok/s. Enxugando para modelo local:
+  agents: {
+    defaults: {
+      workspace: "/home/arthur/projetos",
+      // docs gateway/local-models: tira browser, automations, message,
+      // image/music/video_generate, tts, pdf
+      experimental: { localModelLean: true },
+      // Turnos com prefill a frio + tool calls passam de 7 min neste hardware
+      timeoutSeconds: 900,
+    },
+    entries: { main: { workspace: "/home/arthur/projetos" } },
   },
 
   // Provider padrão de embeddings é "openai" (sem chave aqui); desliga para
