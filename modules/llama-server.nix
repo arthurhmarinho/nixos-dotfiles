@@ -39,6 +39,10 @@ in
   #   sudo systemctl start llama-cpp   (e `stop` antes de jogar)
   systemd.services.llama-cpp.wantedBy = lib.mkForce [ ];
 
+  # Com ProtectHome/DynamicUser o Mesa não acha um ~/.cache gravável e desliga
+  # o cache de shaders (recompila tudo a cada start). Usa o CacheDirectory do módulo.
+  systemd.services.llama-cpp.environment.MESA_SHADER_CACHE_DIR = "/var/cache/llama-cpp/mesa";
+
   # Diretório dos modelos: meu usuário baixa, o serviço (DynamicUser) só lê
   systemd.tmpfiles.rules = [ "d ${modelsDir} 0755 arthur users -" ];
 }
