@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 # llama-server (llama.cpp) com Vulkan: API compatível com OpenAI só em loopback.
 # Opções: nixos/modules/services/misc/llama-cpp.nix — cada chave de `settings`
@@ -34,6 +34,10 @@ in
       min-p = 0.0;
     };
   };
+
+  # Não sobe no boot: segura ~6,5 GB de VRAM. Iniciar à mão:
+  #   sudo systemctl start llama-cpp   (e `stop` antes de jogar)
+  systemd.services.llama-cpp.wantedBy = lib.mkForce [ ];
 
   # Diretório dos modelos: meu usuário baixa, o serviço (DynamicUser) só lê
   systemd.tmpfiles.rules = [ "d ${modelsDir} 0755 arthur users -" ];
