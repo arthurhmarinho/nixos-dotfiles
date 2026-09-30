@@ -67,6 +67,13 @@
       experimental: { localModelLean: true },
       // Turnos com prefill a frio + tool calls passam de 7 min neste hardware
       timeoutSeconds: 900,
+      // Com janela de 32k, o "pre-compaction memory flush" disparava depois de
+      // TODO turno (chamada extra de ~7k tokens, ~50 s, sem cache). Memória
+      // semântica já está off; o schema recomenda desligar em ambiente limitado.
+      compaction: { memoryFlush: { enabled: false } },
+      // Allowlist de skills (eram 20 no prompt: meme-maker, weather, notion,
+      // clawhub...). Só as úteis para código.
+      skills: ["spike", "node-inspect-debugger"],
     },
     entries: { main: { workspace: "/home/arthur/projetos" } },
   },
