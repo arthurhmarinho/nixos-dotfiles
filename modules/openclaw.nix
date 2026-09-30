@@ -13,4 +13,14 @@
 
   # `npm install -g --prefix ~/.local` coloca o binário em ~/.local/bin
   environment.localBinInPath = true;
+
+  # Repos do GitHub visíveis dentro do workspace do agente (~/projetos).
+  # tools.fs.workspaceOnly bloqueia symlinks que saem do workspace
+  # ("Symlink escapes sandbox root"); um bind mount é uma pasta real lá dentro.
+  # Mesmos arquivos, sem cópia: editar em um lugar = editar no outro.
+  fileSystems."/home/arthur/projetos/GitHub" = {
+    device = "/home/arthur/GitHub";
+    fsType = "none";
+    options = [ "bind" "nofail" ];
+  };
 }

@@ -84,6 +84,15 @@
     search: { enabled: false, rememberAcrossConversations: false },
   },
 
+  // "Dreaming": job noturno (3h) do plugin memory-core que consolida memórias
+  // usando o modelo. Sem memória semântica não faz nada útil e ocuparia o
+  // llama-server/GPU de madrugada.
+  plugins: {
+    entries: {
+      "memory-core": { config: { dreaming: { enabled: false } } },
+    },
+  },
+
   // Não criar bloco `browser`: qualquer config ali faz o `doctor --fix`
   // habilitar a ferramenta de navegador. O aviso de relay legado é inócuo
   // sem extensões pareadas. (null remove, caso tenha sido criado antes)
