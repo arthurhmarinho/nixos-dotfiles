@@ -14,6 +14,8 @@
       ./modules/openclaw.nix
       # SSH só com chave (túnel do notebook) + linger
       ./modules/ssh.nix
+      # Acesso de fora de casa (rede privada, sem abrir portas)
+      ./modules/tailscale.nix
     ];
 
   # --- NIX ---
