@@ -70,7 +70,19 @@
       // Com janela de 32k, o "pre-compaction memory flush" disparava depois de
       // TODO turno (chamada extra de ~7k tokens, ~50 s, sem cache). Memória
       // semântica já está off; o schema recomenda desligar em ambiente limitado.
-      compaction: { memoryFlush: { enabled: false } },
+      compaction: {
+        memoryFlush: { enabled: false },
+        // Auto-compactação já é padrão, mas falhava: timeout de 180 s e ~18k
+        // tokens de histórico (~160 s só de prefill na RX 580) + o resumo.
+        timeoutSeconds: 600,
+        thinkingLevel: "off",             // resumo não precisa de <think> (padrão "low")
+        qualityGuard: { enabled: false }, // auditoria pode regenerar = dobra o tempo
+        notifyUser: true,                 // "🧹 Compacting context..." no chat
+      },
+      // Heartbeat: automação a cada 30 min que acorda o agente "proativamente".
+      // Sem canais de chat ela é pulada (no-route), mas já rodou um turno que
+      // encheu os 32k de contexto. "0m" desliga a cadência (docs gateway/heartbeat).
+      heartbeat: { every: "0m" },
       // Allowlist de skills (eram 20 no prompt: meme-maker, weather, notion,
       // clawhub...). Só as úteis para código.
       skills: ["spike", "node-inspect-debugger"],
@@ -90,6 +102,17 @@
   plugins: {
     entries: {
       "memory-core": { config: { dreaming: { enabled: false } } },
+    },
+  },
+
+  // Skill Workshop: padrão "auto" = o agente cria/reescreve as próprias skills
+  // em segundo plano a partir das conversas (e roda jobs que ocupam o modelo).
+  // Com modelo pequeno + prompt injection, isso vira persistência de instruções
+  // maliciosas. Desligado; qualquer proposta exige aprovação.
+  skills: {
+    workshop: {
+      autonomous: { mode: "off" },
+      approvalPolicy: "pending",
     },
   },
 
