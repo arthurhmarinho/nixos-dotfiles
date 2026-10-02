@@ -227,10 +227,10 @@ mode "resize" {
     bindsym $mod+r mode "default"
 }
 
-# --- Screenshots: Insert área, Ctrl+Insert tela, Alt+Insert janela ---
-bindsym Insert      exec ~/.config/sway/scripts/screenshot.sh area
-bindsym Ctrl+Insert exec ~/.config/sway/scripts/screenshot.sh screen
-bindsym Alt+Insert  exec ~/.config/sway/scripts/screenshot.sh window
+# --- Screenshots: PrtSc área, Ctrl+PrtSc tela, Alt+PrtSc janela ---
+bindsym Print      exec ~/.config/sway/scripts/screenshot.sh area
+bindsym Ctrl+Print exec ~/.config/sway/scripts/screenshot.sh screen
+bindsym Alt+Print  exec ~/.config/sway/scripts/screenshot.sh window
 
 # --- Mídia, volume e brilho ---
 bindsym --locked XF86AudioRaiseVolume  exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
