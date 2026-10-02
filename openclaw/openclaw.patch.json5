@@ -45,6 +45,10 @@
     byProvider: {
       "llama-local/qwen3.5-9b": { deny: ["group:web", "browser"] },
     },
+    // Detecção de loop de ferramenta (padrão: off). O 9B repetiu
+    // `nix search postgresql16` / `which psql` dezenas de vezes; negar a
+    // aprovação não para o run, ele só pede de novo.
+    loopDetection: { enabled: true },
     // Ações privilegiadas: desligadas até haver um caso de uso explícito.
     elevated: { enabled: false },
     // read/write/edit/apply_patch NÃO passam pela aprovação de exec; sem isto
