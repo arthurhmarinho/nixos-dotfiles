@@ -287,6 +287,7 @@
     nautilus
     obsidian
     onlyoffice-desktopeditors
+    zathura                        # leitor de PDF/DjVu/EPUB (atalhos estilo vim)
 
     # Engenharia
     freecad
