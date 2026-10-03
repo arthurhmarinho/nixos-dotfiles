@@ -250,6 +250,11 @@
   # --- PACOTES DO SISTEMA ---
   programs.firefox.enable = true;
 
+  # Java para o DáoLike (Spring Boot pede Java 21). O caminho no /nix/store
+  # muda a cada atualização; /etc/jdks/21 é fixo, e é ele que se registra
+  # como SDK no IntelliJ — assim a IDE não quebra depois de um rebuild.
+  environment.etc."jdks/21".source = "${pkgs.jdk21}/lib/openjdk";
+
   environment.systemPackages = with pkgs; [
     # Tema
     (whitesur-gtk-theme.override {
@@ -282,6 +287,7 @@
     zed-editor
     (callPackage ./pkgs/github-desktop-url-fix.nix { })   # corrige o login pelo navegador
     jetbrains.idea                 # IntelliJ IDEA (unificado; recursos Ultimate com a assinatura)
+    jdk21                          # java no PATH: ./mvnw roda direto, sem nix shell
 
     # Arquivos e produtividade
     nautilus
