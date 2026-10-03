@@ -27,6 +27,7 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 
 /* ---------------------------------- ilhas ---------------------------------- */
 #custom-launcher,
+#custom-focused,
 #workspaces,
 #mpris,
 #stats,
@@ -142,4 +143,11 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 #custom-settings:hover {
   color: @base;
   background: @accent;
+}
+
+/* programa em foco (abaixo dos workspaces) */
+#custom-focused {
+  color: @accent;
+  font-size: 15px;
+  padding: 5px 2px 5px 0;
 }

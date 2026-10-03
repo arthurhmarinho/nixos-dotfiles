@@ -14,7 +14,7 @@
   // deles leva cores Pango, que o CSS não alcança)
   "include": ["~/.cache/wallust/waybar-modules.jsonc"],
 
-  "modules-left":   ["custom/launcher", "sway/workspaces", "sway/mode", "sway/scratchpad"],
+  "modules-left":   ["custom/launcher", "sway/workspaces", "custom/focused", "sway/mode", "sway/scratchpad"],
   "modules-center": ["mpris"],
   "modules-right":  ["group/stats", "group/system", "clock", "custom/settings", "custom/power"],
 
@@ -38,6 +38,12 @@
     "disable-scroll": false,
     "all-outputs": false,
     "format": "{name}"
+  },
+  "custom/focused": {
+    // programa em foco: ícone escolhido pelo app e pelo título (scripts/focused.sh)
+    "exec": "~/.config/waybar/scripts/focused.sh",
+    "return-type": "json",
+    "restart-interval": 5
   },
   "sway/mode": {
     "format": "󰩨",
