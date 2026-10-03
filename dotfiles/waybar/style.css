@@ -27,7 +27,7 @@ tooltip label { color: @fg_hi; font-weight: normal; }
 
 /* ---------------------------------- ilhas ---------------------------------- */
 #custom-launcher,
-#custom-focused,
+#focused,
 #workspaces,
 #mpris,
 #stats,
@@ -145,9 +145,27 @@ tooltip label { color: @fg_hi; font-weight: normal; }
   background: @accent;
 }
 
-/* programa em foco (abaixo dos workspaces) */
+/* programa em foco (abaixo dos workspaces): ícone/mascote + título girado */
+#focused { padding: 4px 0; }
 #custom-focused {
   color: @accent;
   font-size: 15px;
-  padding: 5px 2px 5px 0;
+  padding: 1px 2px 1px 0;
 }
+/* Claude Code em foco: o mascote em pixel art no lugar do símbolo */
+#custom-focused.claude {
+  background-image: url("file:///home/arthur/.config/waybar/icons/claude.png");
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 20px;
+  min-width: 22px;
+  padding: 2px 0;
+}
+#custom-focused-title {
+  color: @fg;
+  font-size: 9px;
+  font-weight: normal;
+  padding: 6px 0 2px 0;
+}
+#custom-focused-title.claude { color: @fg_hi; }

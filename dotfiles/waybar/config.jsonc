@@ -14,7 +14,7 @@
   // deles leva cores Pango, que o CSS não alcança)
   "include": ["~/.cache/wallust/waybar-modules.jsonc"],
 
-  "modules-left":   ["custom/launcher", "sway/workspaces", "custom/focused", "sway/mode", "sway/scratchpad"],
+  "modules-left":   ["custom/launcher", "sway/workspaces", "group/focused", "sway/mode", "sway/scratchpad"],
   "modules-center": ["mpris"],
   "modules-right":  ["group/stats", "group/system", "clock", "custom/settings", "custom/power"],
 
@@ -39,10 +39,22 @@
     "all-outputs": false,
     "format": "{name}"
   },
+  // ------------------------------- programa em foco -------------------------------
+  // ícone (o mascote, quando é o Claude Code: desenhado pelo CSS) + título girado
+  "group/focused": {
+    "orientation": "vertical",
+    "modules": ["custom/focused", "custom/focused-title"]
+  },
   "custom/focused": {
-    // programa em foco: ícone escolhido pelo app e pelo título (scripts/focused.sh)
-    "exec": "~/.config/waybar/scripts/focused.sh",
+    "exec": "~/.config/waybar/scripts/focused.sh icon",
     "return-type": "json",
+    "restart-interval": 5
+  },
+  "custom/focused-title": {
+    "exec": "~/.config/waybar/scripts/focused.sh title",
+    "return-type": "json",
+    "rotate": 90,
+    "max-length": 24,
     "restart-interval": 5
   },
   "sway/mode": {

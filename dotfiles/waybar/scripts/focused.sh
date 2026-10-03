@@ -1,12 +1,19 @@
 #!/bin/sh
-# Módulo da Waybar: ícone do programa em foco (abaixo dos workspaces).
+# Módulos da Waybar do programa em foco (abaixo dos workspaces).
 # Acompanha os eventos do Sway e escolhe o ícone pelo app_id/classe e pelo
 # título (ex.: terminal rodando o Claude Code, WhatsApp no Firefox).
-# Saída: uma linha JSON {text, tooltip, class} só quando algo muda.
+#
+# Uso: focused.sh icon    símbolo do programa (classe "claude" no Claude Code)
+#      focused.sh title   título da janela (exibido girado na barra)
+# icon/title: uma linha JSON {text, tooltip, class} só quando algo muda.
+# O mascote do Claude é desenhado pelo CSS (fundo do módulo com classe "claude").
+
+mode=${1:-icon}
 
 u() { printf "\\U$(printf %08X "0x$1")"; }   # ícone pelo código Unicode
 
-focused() {
+# Objeto {icon, name, title, claude} da janela em foco
+info() {
   swaymsg -t get_tree | jq -c \
     --arg claude "$(u F06A9)" --arg term "$(u F018D)" --arg firefox "$(u F0239)" \
     --arg whatsapp "$(u F05A3)" --arg youtube "$(u F05C3)" --arg spotify "$(u F04C7)" \
@@ -17,10 +24,12 @@ focused() {
     --arg cad "$(u F01A7)" --arg github "$(u F02A4)" --arg app "$(u F08C6)" '
     [.. | objects | select(.focused? == true)][0] as $f
     | if $f == null or $f.type == "workspace" or $f.type == "output" then
-        {text: "", tooltip: "", class: "empty"}
+        {icon: "", name: "", title: "", claude: false}
       else
         (($f.app_id // $f.window_properties.class // "") | ascii_downcase) as $id
-        | ($f.name // "" | sub("^[✳✻✽✶✢·◐◑◒◓⠀-⣿] "; "")) as $t0 | ($f.name // "") as $t
+        | ($f.name // "") as $t
+        # título limpo: sem o símbolo animado do Claude e sem o nome do navegador
+        | ($t | sub("^[✳✻✽✶✢·◐◑◒◓⠀-⣿] "; "") | sub(" [—-] Mozilla Firefox$"; "")) as $clean
         | (if ($id | test("alacritty|foot|kitty|terminal")) then
              (if ($t | test("^[✳✻✽✶✢·◐◑◒◓⠀-⣿] |claude"; "i")) then [$claude, "Claude Code"]
               else [$term, "Terminal"] end)
@@ -45,13 +54,29 @@ focused() {
            elif ($id | test("github")) then [$github, "GitHub Desktop"]
            elif ($id | test("lutris|bottles|gamescope")) then [$game, "Jogo"]
            else [$app, ($f.app_id // $f.window_properties.class // "Programa")] end) as $m
-        | {text: $m[0], tooltip: "\($m[1])\n\($t0)", class: "app"}
+        | {icon: $m[0], name: $m[1], title: $clean, claude: ($m[1] == "Claude Code")}
       end'
 }
 
-last=""
-emit() { out=$(focused); [ "$out" != "$last" ] && { echo "$out"; last="$out"; }; }
 
+render() {
+  i=$(info)
+  case "$mode" in
+    icon)
+      echo "$i" | jq -c 'if .icon == "" then {text: "", tooltip: "", class: "empty"}
+                         elif .claude then {text: " ", tooltip: "\(.name)\n\(.title)" | @html, class: "claude"}
+                         else {text: .icon, tooltip: "\(.name)\n\(.title)" | @html, class: "app"} end'
+      ;;
+    title)
+      echo "$i" | jq -c 'if .title == "" then {text: "", tooltip: "", class: "empty"}
+                         else {text: (.title | @html), tooltip: "\(.name)\n\(.title)" | @html, class: (if .claude then "claude" else "app" end)} end'
+      ;;
+  esac
+}
+
+
+last=""
+emit() { out=$(render); [ "$out" != "$last" ] && { echo "$out"; last="$out"; }; }
 emit
 # Reavalia a cada evento de janela (foco, título) ou de workspace
 swaymsg -t subscribe -m '["window","workspace"]' | while read -r _; do emit; done
