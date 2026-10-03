@@ -16,7 +16,7 @@ set page-h-padding       6
 set database             "sqlite"
 
 # Fundo em volta das páginas: translúcido, o blur do SwayFX aparece atrás
-set default-bg           "rgba(18,16,16,0.70)"
+set default-bg           "rgba(18,16,16,0.85)"
 set default-fg           "#e2d2c0"
 
 # Modo escuro para leitura (Ctrl+R alterna — atalho padrão): texto creme sobre fundo escuro
@@ -24,7 +24,7 @@ set default-fg           "#e2d2c0"
 set recolor-keephue      true
 set recolor-reverse-video true
 set recolor-darkcolor    "#e2d2c0"
-set recolor-lightcolor   "rgba(18,16,16,0.82)"
+set recolor-lightcolor   "rgba(0,0,0,0)"
 set recolor              true
 
 set statusbar-bg         "rgba(18,16,16,0.90)"
@@ -51,7 +51,7 @@ set completion-highlight-bg "#2a1d1b"
 set completion-highlight-fg "#e0533d"
 set completion-group-bg  "#121010"
 set completion-group-fg  "#8a7f7c"
-set render-loading-bg    "rgba(18,16,16,0.70)"
+set render-loading-bg    "rgba(0,0,0,0)"
 set render-loading-fg    "#8a7f7c"
 
 # Atalhos extras
