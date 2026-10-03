@@ -119,6 +119,8 @@ for_window [app_id="^jetbrains-" title="^(Data Sharing|Welcome to .*|Import .* S
 # Zathura: janela em retrato no centro, na proporção de uma página A4
 # (no tiling ela ficaria larga e baixa e a página encolheria para caber)
 for_window [app_id="org.pwmt.zathura"] floating enable, resize set 780 px 1060 px, move position center
+# Seletor de wallpapers (menu de Configurações): flutuante no centro
+for_window [app_id="waypaper"] floating enable, resize set 1000 px 640 px, move position center
 
 floating_modifier $mod normal
 
