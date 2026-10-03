@@ -281,7 +281,7 @@
     claude-code
     zed-editor
     (callPackage ./pkgs/github-desktop-url-fix.nix { })   # corrige o login pelo navegador
-    jetbrains-toolbox              # instala o IntelliJ (assinatura Ultimate)
+    jetbrains.idea                 # IntelliJ IDEA (unificado; recursos Ultimate com a assinatura)
 
     # Arquivos e produtividade
     nautilus
