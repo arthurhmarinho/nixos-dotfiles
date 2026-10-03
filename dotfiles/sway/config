@@ -113,6 +113,9 @@ for_window [window_type="dialog"] floating enable
 # IntelliJ/JetBrains (Wayland nativo): diálogos que abrem antes da janela
 # principal não têm "pai" e o Sway os encaixaria no tiling, quebrando os cliques
 for_window [app_id="^jetbrains-" title="^(Data Sharing|Welcome to .*|Import .* Settings|.*Licenses?|Tip of the Day|Choose .*)$"] floating enable
+# Zathura: janela em retrato no centro, na proporção de uma página A4
+# (no tiling ela ficaria larga e baixa e a página encolheria para caber)
+for_window [app_id="org.pwmt.zathura"] floating enable, resize set 780 px 1060 px, move position center
 
 floating_modifier $mod normal
 
