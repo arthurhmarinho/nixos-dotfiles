@@ -137,6 +137,13 @@
     # config.sway.default: o módulo do Sway já o define (gtk).
     config.sway."org.freedesktop.impl.portal.ScreenCast" = "wlr";
     config.sway."org.freedesktop.impl.portal.Screenshot" = "wlr";
+    # Ao compartilhar/gravar a tela (OBS, Discord, navegador), o portal pergunta
+    # qual monitor usar. Ele roda como serviço do systemd, sem o PATH do Sway,
+    # então o menu (fuzzel) precisa do caminho completo.
+    wlr.settings.screencast = {
+      chooser_type = "dmenu";
+      chooser_cmd = "${pkgs.fuzzel}/bin/fuzzel --dmenu --prompt '󰹑  Gravar monitor: ' --lines 3 --width 30";
+    };
   };
 
   # Agente de polkit (pedidos de senha gráficos), iniciado pelo config do Sway
