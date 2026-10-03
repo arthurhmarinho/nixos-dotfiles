@@ -315,6 +315,7 @@
     obsidian
     onlyoffice-desktopeditors
     zathura                        # leitor de PDF/DjVu/EPUB (atalhos estilo vim)
+    mpv                            # player de vídeo (decodificação pela GPU)
 
     # Engenharia
     freecad

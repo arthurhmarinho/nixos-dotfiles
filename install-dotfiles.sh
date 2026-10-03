@@ -7,7 +7,7 @@ SRC="$(cd "$(dirname "$0")" && pwd)/dotfiles"
 BACKUP="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
 
 # swaylock, starship e fastfetch não estão aqui: são gerados pelo wallust
-for app in sway waybar mako fuzzel alacritty zathura wallust; do
+for app in sway waybar mako fuzzel alacritty zathura wallust mpv; do
   if [ -e "$HOME/.config/$app" ]; then
     mkdir -p "$BACKUP"
     mv "$HOME/.config/$app" "$BACKUP/"
@@ -26,7 +26,7 @@ for f in fish/config.fish; do
   cp "$SRC/$f" "$HOME/.config/$f"
   echo "  ✔ $f"
 done
-mkdir -p "$HOME/Pictures/Screenshots" "$HOME/Pictures/Wallpapers"
+mkdir -p "$HOME/Pictures/Screenshots" "$HOME/Pictures/Wallpapers" "$HOME/Videos/Gravações"
 
 # Wallpaper opcional: vai para ~/Pictures/Wallpapers e é aplicado no fim
 if [ $# -ge 1 ] && [ -f "$1" ]; then
