@@ -1,0 +1,6 @@
+/* Gerado pelo wallust (dotfiles/wallust/templates/wallpicker.css) — não editar */
+@define-color bg     rgba({{background | rgb}}, 0.82);
+@define-color line   {{background | lighten(0.10)}};
+@define-color fg     {{foreground | darken(0.4)}};
+@define-color fg_hi  {{foreground}};
+@define-color accent {{color1}};

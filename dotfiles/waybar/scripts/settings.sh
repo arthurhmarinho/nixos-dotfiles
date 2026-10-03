@@ -14,7 +14,7 @@ else
 fi
 
 choice=$(printf '%s\n' \
-  "󰸉  Escolher wallpaper" \
+  "󰸉  Escolher wallpaper  (Super+Shift+W)" \
   "$tema" \
   "󰑓  Wallpaper padrão" \
   "󰕾  Áudio" \
@@ -24,7 +24,7 @@ choice=$(printf '%s\n' \
   | menu "󰒓  Configurações  " 7) || exit 0
 
 case "$choice" in
-  *"Escolher wallpaper"*) mkdir -p "$HOME/Pictures/Wallpapers"; waypaper & ;;
+  *"Escolher wallpaper"*) wallpicker & ;;
   *"usar cores do wallpaper"*) "$wallpaper" mode auto ;;
   *"usar vermelho fixo"*)      "$wallpaper" mode fixo ;;
   *"Wallpaper padrão"*)   "$wallpaper" default ;;

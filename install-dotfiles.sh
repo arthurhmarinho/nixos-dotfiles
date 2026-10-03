@@ -7,7 +7,7 @@ SRC="$(cd "$(dirname "$0")" && pwd)/dotfiles"
 BACKUP="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
 
 # swaylock, starship e fastfetch não estão aqui: são gerados pelo wallust
-for app in sway waybar mako fuzzel alacritty zathura wallust waypaper; do
+for app in sway waybar mako fuzzel alacritty zathura wallust; do
   if [ -e "$HOME/.config/$app" ]; then
     mkdir -p "$BACKUP"
     mv "$HOME/.config/$app" "$BACKUP/"
