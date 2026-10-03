@@ -1,0 +1,8 @@
+# Gerado pelo wallust (dotfiles/wallust/templates/sway) — não editar
+set $bg     {{background}}
+set $fg     {{foreground | darken(0.4)}}
+set $fg_hi  {{foreground}}
+set $line   {{background | lighten(0.10)}}
+set $accent {{color1}}
+set $urgent {{color11}}
+dim_inactive_colors.urgent {{color11}}ff

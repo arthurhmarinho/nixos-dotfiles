@@ -1,10 +1,9 @@
+# ~/.config/mako/config — cores geradas pelo wallust a partir do wallpaper
+include=~/.cache/wallust/mako
+
 font=JetBrainsMono Nerd Font 10
 icon-path=/run/current-system/sw/share/icons/MacTahoe-red-dark
 max-icon-size=40
-background-color=#121010e6
-text-color=#e2d2c0
-border-color=#e0533d
-progress-color=over #942e17
 border-size=1
 border-radius=12
 padding=12
@@ -14,9 +13,5 @@ width=340
 anchor=top-right
 default-timeout=5000
 
-[urgency=low]
-border-color=#2e2424
-
 [urgency=high]
-border-color=#e5a04b
 default-timeout=0

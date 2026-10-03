@@ -1,11 +1,6 @@
-/* ~/.config/waybar/style.css — vertical, ilhas arredondadas, preto + vermelho */
-@define-color bg      rgba(18, 16, 16, 0.85);
-@define-color bg_hi   #241c1c;
-@define-color fg      #7a6f6c;
-@define-color fg_hi   #e2d2c0;
-@define-color line    #2e2424;
-@define-color accent  #e0533d;
-@define-color urgent  #e5a04b;
+/* ~/.config/waybar/style.css — vertical, ilhas arredondadas; cores do wallust */
+/* @bg @bg_hi @fg @fg_hi @line @accent @urgent @base: geradas a partir do wallpaper */
+@import url("file:///home/arthur/.cache/wallust/waybar.css");
 
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
@@ -24,7 +19,7 @@ window#waybar {
 }
 
 tooltip {
-  background: #121010;
+  background: @base;
   border: 1px solid @accent;
   border-radius: 8px;
 }
@@ -66,16 +61,16 @@ tooltip label { color: @fg_hi; font-weight: normal; }
   background: @bg_hi;
 }
 #workspaces button.focused {
-  color: #121010;
+  color: @base;
   background: @accent;
 }
 #workspaces button.urgent {
-  color: #121010;
+  color: @base;
   background: @urgent;
 }
 
 #mode {
-  color: #121010;
+  color: @base;
   background: @accent;
   border-radius: 11px;
   padding: 4px 0;
@@ -135,7 +130,7 @@ tooltip label { color: @fg_hi; font-weight: normal; }
   padding: 5px 0;
 }
 #custom-power:hover {
-  color: #121010;
+  color: @base;
   background: @accent;
 }
 
@@ -145,6 +140,6 @@ tooltip label { color: @fg_hi; font-weight: normal; }
   padding: 5px 2px 5px 0;
 }
 #custom-settings:hover {
-  color: #121010;
+  color: @base;
   background: @accent;
 }

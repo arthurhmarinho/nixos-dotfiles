@@ -1,0 +1,28 @@
+# Gerado pelo wallust (dotfiles/wallust/templates/swaylock) — não editar
+image=/home/arthur/.local/share/wallpaper/current
+scaling=fill
+color={{background | strip}}
+font=JetBrainsMono Nerd Font
+indicator-radius=90
+indicator-thickness=7
+inside-color={{background | strip}}cc
+inside-clear-color={{background | strip}}cc
+inside-ver-color={{background | strip}}cc
+inside-wrong-color={{background | strip}}cc
+ring-color={{background | lighten(0.10) | strip}}
+ring-clear-color={{foreground | darken(0.4) | strip}}
+ring-ver-color={{color1 | strip}}
+ring-wrong-color={{color11 | strip}}
+key-hl-color={{color1 | strip}}
+bs-hl-color={{color11 | strip}}
+text-color={{foreground | strip}}
+text-clear-color={{foreground | strip}}
+text-ver-color={{color1 | strip}}
+text-wrong-color={{color11 | strip}}
+line-color=00000000
+line-clear-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+separator-color=00000000
+ignore-empty-password
+show-failed-attempts

@@ -1,20 +1,22 @@
 # =============================================================================
-#  ~/.config/sway/config — ricing minimalista (preto + vermelho)
+#  ~/.config/sway/config — ricing minimalista (cores tiradas do wallpaper)
 #  Atalhos espelhados no niri do Void. Veja todos com: Super+Shift+/
 # =============================================================================
 
 set $mod   Mod4
 set $term  alacritty
 set $menu  fuzzel
-set $lock  swaylock -f
+set $lock  swaylock -f -C ~/.cache/wallust/swaylock
 
-# Paleta
+# Paleta: valores padrão (tema vermelho) sobrescritos pelo arquivo que o
+# wallust gera a partir do wallpaper (dotfiles/wallust/templates/sway)
 set $bg     #121010
 set $fg     #8a7f7c
 set $fg_hi  #e2d2c0
 set $line   #2e2424
 set $accent #e0533d
 set $urgent #e5a04b
+include ~/.cache/wallust/sway
 
 # ------------------------------- aparência -----------------------------------
 font pango:JetBrainsMono Nerd Font 10
@@ -37,7 +39,7 @@ blur_passes 2
 blur_radius 4
 default_dim_inactive 0.08
 dim_inactive_colors.unfocused #000000ff
-dim_inactive_colors.urgent    #e5a04bff
+# (dim_inactive_colors.urgent vem do arquivo do wallust)
 # Blur/cantos atrás da barra, notificações e launcher
 layer_effects "waybar" blur enable; blur_ignore_transparent enable; shadows disable
 layer_effects "notifications" blur enable; shadows enable

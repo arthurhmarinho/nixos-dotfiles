@@ -9,9 +9,9 @@ choice=$(printf '%s\n' \
   | fuzzel --dmenu --prompt '⏻  ' --lines 5 --width 22)
 
 case "$choice" in
-  *Bloquear*)  swaylock -f ;;
+  *Bloquear*)  swaylock -f -C ~/.cache/wallust/swaylock ;;
   *Sair*)      swaymsg exit ;;
-  *Suspender*) swaylock -f && systemctl suspend ;;
+  *Suspender*) swaylock -f -C ~/.cache/wallust/swaylock && systemctl suspend ;;
   *Reiniciar*) systemctl reboot ;;
   *Desligar*)  systemctl poweroff ;;
 esac

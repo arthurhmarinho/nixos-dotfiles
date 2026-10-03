@@ -1,0 +1,40 @@
+// Gerado pelo wallust (dotfiles/wallust/templates/waybar-modules.jsonc) — não editar
+// Módulos com cores no próprio texto (Pango), que o CSS não alcança.
+{
+  "cpu": {
+    "format": "<span color='{{color1}}' size='7pt'>CPU</span>\n<span size='8pt'>{usage}%</span>",
+    "justify": "center",
+    "interval": 3,
+    "tooltip-format": "CPU: {usage}%",
+    "on-click": "alacritty -e htop"
+  },
+  "memory": {
+    "format": "<span color='{{color1}}' size='7pt'>RAM</span>\n<span size='8pt'>{percentage}%</span>",
+    "justify": "center",
+    "interval": 5,
+    "tooltip-format": "RAM: {used:0.1f} / {total:0.1f} GiB"
+  },
+  "custom/gpu": {
+    "exec": "cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -1",
+    "format": "<span color='{{color1}}' size='7pt'>GPU</span>\n<span size='8pt'>{}%</span>",
+    "justify": "center",
+    "interval": 3,
+    "tooltip": false
+  },
+  "clock": {
+    "format": "{:%H\n%M}",
+    "justify": "center",
+    "interval": 30,
+    "tooltip-format": "<b>{:%A, %d de %B}</b>\n\n<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "on-scroll": 1,
+      "format": {
+        "months":   "<span color='{{foreground}}'><b>{}</b></span>",
+        "weekdays": "<span color='{{color1}}'><b>{}</b></span>",
+        "today":    "<span color='{{background}}' background='{{color1}}'><b>{}</b></span>"
+      }
+    },
+    "actions": { "on-scroll-up": "shift_up", "on-scroll-down": "shift_down" }
+  }
+}

@@ -1,0 +1,25 @@
+# ~/.config/wallust/wallust.toml — tema dinâmico a partir do wallpaper
+# Quem chama o wallust é ~/.config/sway/scripts/wallpaper.sh: ele gera a paleta
+# da imagem, escolhe a cor de destaque (color1) e aplica com `wallust cs`.
+# Todos os modelos usam color1 como destaque; os arquivos gerados vão para
+# ~/.cache/wallust (incluídos pelos configs de cada programa).
+
+backend = "resized"
+color_space = "lch"
+palette = "dark16"
+check_contrast = true
+fallback_generator = "interpolate"
+
+[templates]
+colors    = { template = "colors.json",     target = "~/.cache/wallust/colors.json" }
+sway      = { template = "sway",            target = "~/.cache/wallust/sway" }
+waybar    = { template = "waybar.css",      target = "~/.cache/wallust/waybar.css" }
+waybarmod = { template = "waybar-modules.jsonc", target = "~/.cache/wallust/waybar-modules.jsonc" }
+fuzzel    = { template = "fuzzel.ini",      target = "~/.cache/wallust/fuzzel.ini" }
+mako      = { template = "mako",            target = "~/.cache/wallust/mako" }
+swaylock  = { template = "swaylock",        target = "~/.cache/wallust/swaylock" }
+alacritty = { template = "alacritty.toml",  target = "~/.cache/wallust/alacritty.toml" }
+zathura   = { template = "zathura",         target = "~/.cache/wallust/zathura" }
+fish      = { template = "colors.fish",     target = "~/.cache/wallust/colors.fish" }
+starship  = { template = "starship.toml",   target = "~/.config/starship.toml" }
+fastfetch = { template = "fastfetch.jsonc", target = "~/.config/fastfetch/config.jsonc" }

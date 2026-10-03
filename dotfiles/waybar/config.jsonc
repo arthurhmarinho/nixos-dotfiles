@@ -10,6 +10,10 @@
   "margin-left": 4,
   "spacing": 6,
 
+  // cpu, memory, custom/gpu e clock: no arquivo gerado pelo wallust (o texto
+  // deles leva cores Pango, que o CSS não alcança)
+  "include": ["~/.cache/wallust/waybar-modules.jsonc"],
+
   "modules-left":   ["custom/launcher", "sway/workspaces", "sway/mode", "sway/scratchpad"],
   "modules-center": ["mpris"],
   "modules-right":  ["group/stats", "group/system", "clock", "custom/settings", "custom/power"],
@@ -58,13 +62,6 @@
   },
 
   // ------------------------------------ base ------------------------------------
-  "cpu": {
-    "format": "<span color='#e0533d' size='7pt'>CPU</span>\n<span size='8pt'>{usage}%</span>",
-    "justify": "center",
-    "interval": 3,
-    "tooltip-format": "CPU: {usage}%",
-    "on-click": "alacritty -e htop"
-  },
   "temperature#cpu": {
     // k10temp (Ryzen) — caminho fixo, não muda entre boots
     "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
@@ -73,19 +70,6 @@
     "format": "{temperatureC}°",
     "justify": "center",
     "tooltip-format": "CPU: {temperatureC}°C"
-  },
-  "memory": {
-    "format": "<span color='#e0533d' size='7pt'>RAM</span>\n<span size='8pt'>{percentage}%</span>",
-    "justify": "center",
-    "interval": 5,
-    "tooltip-format": "RAM: {used:0.1f} / {total:0.1f} GiB"
-  },
-  "custom/gpu": {
-    "exec": "cat /sys/class/drm/card*/device/gpu_busy_percent 2>/dev/null | head -1",
-    "format": "<span color='#e0533d' size='7pt'>GPU</span>\n<span size='8pt'>{}%</span>",
-    "justify": "center",
-    "interval": 3,
-    "tooltip": false
   },
   "temperature#gpu": {
     // amdgpu (RX580)
@@ -129,25 +113,6 @@
     "scroll-step": 5,
     "on-click": "pavucontrol",
     "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-  },
-  "clock": {
-    "format": "{:%H\n%M}",
-    "justify": "center",
-    "interval": 30,
-    "tooltip-format": "<b>{:%A, %d de %B}</b>\n\n<tt>{calendar}</tt>",
-    "calendar": {
-      "mode": "month",
-      "on-scroll": 1,
-      "format": {
-        "months":   "<span color='#e2d2c0'><b>{}</b></span>",
-        "weekdays": "<span color='#e0533d'><b>{}</b></span>",
-        "today":    "<span color='#121010' background='#e0533d'><b>{}</b></span>"
-      }
-    },
-    "actions": {
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
-    }
   },
   "custom/settings": {
     "format": "󰒓",

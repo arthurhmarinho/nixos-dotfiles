@@ -1,4 +1,5 @@
-# ~/.config/starship.toml — paleta vermelha
+# Gerado pelo wallust (dotfiles/wallust/templates/starship.toml) — não editar
+# ~/.config/starship.toml — cores do wallpaper
 # Linha 1: usuário@host · pasta · git · linguagem/nix · duração
 # Linha 2: ❯
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -13,12 +14,12 @@ $fill$cmd_duration$status
 [╰─](line)$character"""
 
 [palettes.rubi]
-accent = "#e0533d"
-deep   = "#942e17"
-text   = "#e2d2c0"
-muted  = "#8a7f7c"
-line   = "#5a4f4c"
-warn   = "#e5a04b"
+accent = "{{color1}}"
+deep   = "{{color1 | darken(0.35)}}"
+text   = "{{foreground}}"
+muted  = "{{foreground | darken(0.4)}}"
+line   = "{{foreground | darken(0.6)}}"
+warn   = "{{color11}}"
 
 [fill]
 symbol = " "

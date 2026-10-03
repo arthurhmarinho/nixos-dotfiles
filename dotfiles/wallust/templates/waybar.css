@@ -1,0 +1,9 @@
+/* Gerado pelo wallust (dotfiles/wallust/templates/waybar.css) — não editar */
+@define-color bg      rgba({{background | rgb}}, 0.85);
+@define-color bg_hi   {{background | lighten(0.06)}};
+@define-color fg      {{foreground | darken(0.4)}};
+@define-color fg_hi   {{foreground}};
+@define-color line    {{background | lighten(0.10)}};
+@define-color accent  {{color1}};
+@define-color urgent  {{color11}};
+@define-color base    {{background}};

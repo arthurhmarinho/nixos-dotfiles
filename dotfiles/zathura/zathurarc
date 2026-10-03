@@ -1,4 +1,4 @@
-# ~/.config/zathura/zathurarc — paleta vermelha, fundo transparente (blur do SwayFX)
+# ~/.config/zathura/zathurarc — fundo transparente (blur do SwayFX), cores do wallust
 
 set font                 "JetBrainsMono Nerd Font 10"
 set selection-clipboard  clipboard
@@ -15,44 +15,13 @@ set page-v-padding       6
 set page-h-padding       6
 set database             "sqlite"
 
-# Fundo em volta das páginas: translúcido, o blur do SwayFX aparece atrás
-set default-bg           "rgba(18,16,16,0.85)"
-set default-fg           "#e2d2c0"
-
-# Modo escuro para leitura (Ctrl+R alterna — atalho padrão): texto creme sobre fundo escuro
-# translúcido, mantendo as cores das imagens
+# Modo escuro para leitura (Ctrl+R alterna — atalho padrão): página transparente,
+# texto na cor clara do tema e imagens com as cores originais
 set recolor-keephue      true
 set recolor-reverse-video true
-set recolor-darkcolor    "#e2d2c0"
-set recolor-lightcolor   "rgba(0,0,0,0)"
+# Cores geradas pelo wallust a partir do wallpaper (precisam vir antes do recolor)
+include /home/arthur/.cache/wallust/zathura
 set recolor              true
-
-set statusbar-bg         "rgba(18,16,16,0.90)"
-set statusbar-fg         "#8a7f7c"
-set inputbar-bg          "rgba(18,16,16,0.90)"
-set inputbar-fg          "#e2d2c0"
-set notification-bg      "#121010"
-set notification-fg      "#e2d2c0"
-set notification-error-bg "#121010"
-set notification-error-fg "#e0533d"
-set notification-warning-bg "#121010"
-set notification-warning-fg "#e5a04b"
-
-set highlight-color      "rgba(224,83,61,0.35)"
-set highlight-fg         "#121010"
-set highlight-active-color "rgba(229,160,75,0.45)"
-set index-bg             "rgba(18,16,16,0.90)"
-set index-fg             "#e2d2c0"
-set index-active-bg      "#2a1d1b"
-set index-active-fg      "#e0533d"
-set completion-bg        "rgba(18,16,16,0.90)"
-set completion-fg        "#e2d2c0"
-set completion-highlight-bg "#2a1d1b"
-set completion-highlight-fg "#e0533d"
-set completion-group-bg  "#121010"
-set completion-group-fg  "#8a7f7c"
-set render-loading-bg    "rgba(0,0,0,0)"
-set render-loading-fg    "#8a7f7c"
 
 # Atalhos extras
 map D     toggle_page_mode
