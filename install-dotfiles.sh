@@ -28,7 +28,7 @@ done
 [ -e "$HOME/.config/starship.toml" ] && mkdir -p "$BACKUP" && cp "$HOME/.config/starship.toml" "$BACKUP/"
 cp "$SRC/starship/starship.toml" "$HOME/.config/starship.toml"
 echo "  ✔ starship.toml"
-mkdir -p "$HOME/Pictures/Screenshots"
+mkdir -p "$HOME/Pictures/Screenshots" "$HOME/Pictures/Wallpapers"
 
 # Wallpaper opcional
 if [ $# -ge 1 ] && [ -f "$1" ]; then

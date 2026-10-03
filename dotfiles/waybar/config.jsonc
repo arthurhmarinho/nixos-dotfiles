@@ -12,7 +12,7 @@
 
   "modules-left":   ["custom/launcher", "sway/workspaces", "sway/mode", "sway/scratchpad"],
   "modules-center": ["mpris"],
-  "modules-right":  ["group/stats", "group/system", "clock", "custom/power"],
+  "modules-right":  ["group/stats", "group/system", "clock", "custom/settings", "custom/power"],
 
   // ------------------------------- grupos (ilhas) -------------------------------
   "group/stats": {
@@ -148,6 +148,11 @@
       "on-scroll-up": "shift_up",
       "on-scroll-down": "shift_down"
     }
+  },
+  "custom/settings": {
+    "format": "󰒓",
+    "tooltip-format": "Configurações (Super+,)",
+    "on-click": "~/.config/waybar/scripts/settings.sh"
   },
   "custom/power": {
     "format": "󰐥",

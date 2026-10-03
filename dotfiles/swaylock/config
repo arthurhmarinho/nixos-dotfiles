@@ -1,4 +1,4 @@
-image=/home/arthur/.config/sway/wallpaper.png
+image=/home/arthur/.local/share/wallpaper/current
 scaling=fill
 color=121010
 font=JetBrainsMono Nerd Font

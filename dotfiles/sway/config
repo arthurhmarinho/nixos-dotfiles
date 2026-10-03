@@ -49,8 +49,9 @@ client.focused_inactive $line    $bg    $fg     $line     $line
 client.unfocused        $line    $bg    $fg     $line     $line
 client.urgent           $urgent  $bg    $fg_hi  $urgent   $urgent
 
-# Wallpaper (vem de dotfiles/sway/wallpaper.png)
-output * bg ~/.config/sway/wallpaper.png fill $bg
+# Wallpaper: escolhido pelo menu de Configurações (Super+, ou 󰒓 na barra).
+# O atual fica em ~/.local/share/wallpaper/current; o padrão é sway/wallpaper.png
+exec_always ~/.config/sway/scripts/wallpaper.sh restore
 
 # --------------------------------- monitores ---------------------------------
 # Identificados por marca/modelo/serial (não mudam se trocar de porta).
@@ -130,6 +131,7 @@ bindsym $mod+space exec $menu
 bindsym $mod+q kill
 bindsym $mod+Alt+l exec $lock
 bindsym $mod+Shift+e exec ~/.config/waybar/scripts/powermenu.sh
+bindsym $mod+comma exec ~/.config/waybar/scripts/settings.sh
 # tecla física "/" (bindcode = posição, independe do layout br)
 bindcode $mod+Shift+61 exec ~/.config/sway/scripts/keybinds.sh
 bindsym $mod+Shift+c reload
