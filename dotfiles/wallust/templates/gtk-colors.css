@@ -1,0 +1,9 @@
+/* Gerado pelo wallust (dotfiles/wallust/templates/gtk-colors.css) — não editar */
+/* Cores para os painéis GTK do ricing (mediapanel) */
+@define-color bg     rgba({{background | rgb}}, 0.82);
+@define-color bg_hi  {{background | lighten(0.06)}};
+@define-color line   {{background | lighten(0.10)}};
+@define-color fg     {{foreground | darken(0.4)}};
+@define-color fg_hi  {{foreground}};
+@define-color accent {{color1}};
+@define-color base   {{background}};

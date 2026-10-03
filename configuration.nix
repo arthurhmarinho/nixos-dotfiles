@@ -285,6 +285,8 @@
     capitaine-cursors
     wallust                        # paleta de cores tirada do wallpaper (tema dinâmico)
     (callPackage ./pkgs/wallpicker { })  # seletor de wallpapers com pré-visualização (Super+Shift+W)
+    (callPackage ./pkgs/mediapanel { })  # painel do player (clique no ícone de música da barra)
+    easyeffects                    # equalizador/efeitos de áudio (PipeWire)
 
     # Sistema
     vim

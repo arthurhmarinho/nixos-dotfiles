@@ -25,3 +25,4 @@ starship  = { template = "starship.toml",   target = "~/.config/starship.toml" }
 fastfetch = { template = "fastfetch.jsonc", target = "~/.config/fastfetch/config.jsonc" }
 wallpicker = { template = "wallpicker.css", target = "~/.cache/wallust/wallpicker.css" }
 mpv       = { template = "mpv.conf",        target = "~/.cache/wallust/mpv.conf" }
+gtkcolors = { template = "gtk-colors.css",  target = "~/.cache/wallust/gtk-colors.css" }

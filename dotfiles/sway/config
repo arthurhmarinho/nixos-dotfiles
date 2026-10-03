@@ -45,6 +45,7 @@ layer_effects "waybar" blur enable; blur_ignore_transparent enable; shadows disa
 layer_effects "notifications" blur enable; shadows enable
 layer_effects "launcher" blur enable; shadows enable
 layer_effects "wallpicker" blur enable; blur_ignore_transparent enable; shadows enable; corner_radius 16
+layer_effects "mediapanel" blur enable; blur_ignore_transparent enable; shadows enable; corner_radius 16
 
 #                       borda    fundo  texto   indicador filho
 client.focused          $accent  $bg    $fg_hi  $accent   $accent
@@ -102,6 +103,8 @@ exec waybar
 # novas janelas em espiral (alterna split h/v)
 exec autotiling-rs
 exec mako
+# Equalizador (EasyEffects) em segundo plano; presets trocados no painel do player
+exec easyeffects --service-mode
 exec /etc/polkit-gnome-agent
 # Sem bloqueio/desligamento de tela automático: bloquear (Super+Alt+L) e
 # suspender (menu de energia, Super+Shift+E) são manuais. O swayidle só

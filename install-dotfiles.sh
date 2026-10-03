@@ -26,6 +26,11 @@ for f in fish/config.fish; do
   cp "$SRC/$f" "$HOME/.config/$f"
   echo "  ✔ $f"
 done
+# Presets do equalizador (EasyEffects): só copia os nossos, mantém os criados no app
+mkdir -p "$HOME/.local/share/easyeffects/output"
+cp "$SRC/easyeffects/output/"*.json "$HOME/.local/share/easyeffects/output/"
+echo "  ✔ presets do equalizador"
+
 mkdir -p "$HOME/Pictures/Screenshots" "$HOME/Pictures/Wallpapers" "$HOME/Videos/Gravações"
 
 # Wallpaper opcional: vai para ~/Pictures/Wallpapers e é aplicado no fim
