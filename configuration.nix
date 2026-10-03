@@ -264,6 +264,8 @@
     })
     (callPackage ./pkgs/mactahoe-icon-theme.nix { themeVariants = [ "red" ]; })
     capitaine-cursors
+    wallust                        # paleta de cores tirada do wallpaper (tema dinâmico)
+    waypaper                       # seletor de wallpapers com miniaturas
 
     # Sistema
     vim
