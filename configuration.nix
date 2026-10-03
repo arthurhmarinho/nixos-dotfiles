@@ -102,31 +102,44 @@
     enable = true;
     theme = "default";   # presets: default, rei, ken, silvia, everforest, nord, catppuccin-*
 
-    # Mesmo wallpaper do desktop e foto do usuário (arquivos em ./assets)
-    backgrounds.rubi = ./assets/sddm-wallpaper.png;
     profileIcons.arthur = ./assets/johnny-joestar.jpg;
 
-    # Opções: https://github.com/uiriansan/SilentSDDM/wiki/Options
-    settings = {
-      "LockScreen"  = { background = "sddm-wallpaper.png"; };
-      "LoginScreen" = { background = "sddm-wallpaper.png"; };
+    # Wallpaper: o mesmo do desktop, acompanhando as trocas. O wallpaper.sh copia
+    # o atual para /var/lib/sddm-wallpaper/wallpaper (pasta do usuário, legível
+    # pelo SDDM). O tema só aceita caminhos relativos a backgrounds/, então os
+    # "../" sobem até a raiz (os que sobram são ignorados). Se o arquivo faltar,
+    # o tema usa a imagem padrão dele.
+    settings = let
+      wallpaper = pkgs.lib.concatStrings (pkgs.lib.replicate 12 "../") + "var/lib/sddm-wallpaper/wallpaper";
+    in {
+      "LockScreen"  = { background = wallpaper; };
+      "LoginScreen" = { background = wallpaper; };
+      # Detalhes neutros (branco translúcido): combinam com qualquer wallpaper
       "LoginScreen.LoginArea.Avatar" = {
         shape = "circle";
         active-border-size = 2;
-        active-border-color = "#e0533d";
+        active-border-color = "#FFFFFF";
       };
       "LoginScreen.LoginArea.PasswordInput" = {
-        background-color = "#121010";
-        background-opacity = 0.6;
+        background-color = "#000000";
+        background-opacity = 0.35;
       };
       "LoginScreen.LoginArea.LoginButton" = {
-        background-color = "#e0533d";
-        background-opacity = 0.6;
-        active-background-color = "#e0533d";
-        active-background-opacity = 0.9;
+        background-color = "#FFFFFF";
+        background-opacity = 0.15;
+        active-background-color = "#FFFFFF";
+        active-background-opacity = 0.30;
       };
     };
   };
+
+  # Pasta do wallpaper do SDDM: do usuário (o wallpaper.sh grava nela a cada
+  # troca) e legível por todos (o SDDM roda como outro usuário). "C" cria a
+  # cópia inicial só se ainda não existir.
+  systemd.tmpfiles.rules = [
+    "d /var/lib/sddm-wallpaper 0755 arthur users -"
+    "C /var/lib/sddm-wallpaper/wallpaper - - - - ${./assets/sddm-wallpaper.png}"
+  ];
 
   # Portais (compartilhar tela, seletor de arquivos)
   xdg.portal = {

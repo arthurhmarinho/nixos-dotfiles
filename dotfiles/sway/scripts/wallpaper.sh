@@ -5,6 +5,7 @@
 # dotfiles, para o install-dotfiles.sh não desfazer a escolha). As cores saem
 # dele pelo wallust (modo "auto") ou da paleta vermelha fixa (modo "fixo"); os
 # arquivos gerados vão para ~/.cache/wallust e são incluídos pelos configs.
+# A tela de login (SDDM) recebe uma cópia em /var/lib/sddm-wallpaper.
 #
 # Uso: wallpaper.sh set ARQUIVO   aplica ARQUIVO como wallpaper (e as cores)
 #      wallpaper.sh default       volta ao wallpaper padrão do ricing
@@ -79,6 +80,16 @@ reload_all() {
   # fastfetch/fish usam as cores novas ao abrir.
 }
 
+# Tela de login (SDDM): copia o wallpaper para a pasta que o SDDM lê
+# (/var/lib/sddm-wallpaper, criada pelo configuration.nix). Grava num
+# temporário e renomeia, para o SDDM nunca ler um arquivo pela metade.
+sync_sddm() {
+  d=/var/lib/sddm-wallpaper
+  [ -d "$d" ] && [ -w "$d" ] || return 0
+  cmp -s "$cur" "$d/wallpaper" && return 0
+  cp -f "$cur" "$d/.wallpaper.tmp" && chmod 644 "$d/.wallpaper.tmp" && mv -f "$d/.wallpaper.tmp" "$d/wallpaper"
+}
+
 apply_bg() {
   bg=$(jq -r '.special.background' "$cache/colors.json" 2>/dev/null || echo "#121010")
   swaymsg "output * bg \"$cur\" fill $bg" >/dev/null
@@ -88,28 +99,29 @@ case "$1" in
   set)
     [ -f "$2" ] || { notify-send "Wallpaper" "Arquivo não encontrado: $2"; exit 1; }
     cp -f "$2" "$cur"
-    theme; apply_bg; reload_all
+    theme; apply_bg; reload_all; sync_sddm
     notify-send -i "$cur" "Wallpaper" "Aplicado: $(basename "$2")"
     ;;
   default)
     cp -f "$default" "$cur"
-    theme; apply_bg; reload_all
+    theme; apply_bg; reload_all; sync_sddm
     notify-send -i "$cur" "Wallpaper" "Voltou ao padrão"
     ;;
   mode)
     case "$2" in auto|fixo) echo "$2" > "$modefile" ;; *) echo "uso: $0 mode auto|fixo"; exit 1 ;; esac
-    theme; apply_bg; reload_all
+    theme; apply_bg; reload_all; sync_sddm
     [ "$2" = auto ] && msg="Cores tiradas do wallpaper" || msg="Tema vermelho fixo"
     notify-send -i "$cur" "Tema" "$msg"
     ;;
   retheme)
     [ -f "$cur" ] || cp -f "$default" "$cur"
-    theme; apply_bg; reload_all
+    theme; apply_bg; reload_all; sync_sddm
     ;;
   restore|*)
     # Chamado pelo exec_always do Sway (também a cada reload): só aplica o fundo;
     # gera as cores apenas se ainda não existirem (primeiro login).
     [ -f "$cur" ] || cp -f "$default" "$cur"
     if [ ! -f "$cache/sway" ]; then theme; apply_bg; reload_all; else apply_bg; fi
+    sync_sddm
     ;;
 esac
