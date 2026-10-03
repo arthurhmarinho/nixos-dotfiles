@@ -178,6 +178,18 @@
   zramSwap.enable = true;
   services.fstrim.enable = true;
 
+  # --- GRAVAÇÃO DE TELA (OBS) ---
+  # Captura: "Wayland output (wlrobs)" direto do Sway, ou "Captura de tela
+  # (PipeWire)" pelo portal wlr. Encoder: "FFmpeg VAAPI" usa a RX580 (alivia a CPU).
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs                         # captura de tela/janela no Sway (wlroots)
+      obs-vaapi                      # gravação acelerada pela GPU AMD (VAAPI)
+      obs-pipewire-audio-capture     # áudio por aplicativo (ex.: só o jogo)
+    ];
+  };
+
   # --- JOGOS E STEAM ---
   programs.steam = {
     enable = true;
